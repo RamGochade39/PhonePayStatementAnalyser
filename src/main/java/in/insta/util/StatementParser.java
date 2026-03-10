@@ -92,7 +92,7 @@ public class StatementParser {
 				}
 
 			} catch (Exception e) {
-				System.out.println("Skipping corrupted block...");
+//System.out.println("Skipping corrupted block...");
 			}
 		}
 
@@ -116,9 +116,9 @@ public class StatementParser {
 		text = text.replaceAll("Transaction Statement for.*", "");
 		text = text.replaceAll("Oct .* - .*", "");
 
-		System.out.println("===================================================");
-		System.out.println(text);
-		System.out.println("===================================================");
+		// System.out.println("===================================================");
+		// System.out.println(text);
+		// System.out.println("===================================================");
 
 		return text;
 	}
