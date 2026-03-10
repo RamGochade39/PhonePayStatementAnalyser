@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhonePay Transaction Analyzer - Upload Statement</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .upload-container {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 30px 90px rgba(102, 126, 234, 0.4);
+            max-width: 550px;
+            width: 100%;
+            padding: 60px 50px;
+            animation: slideUp 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-icon {
+            font-size: 4em;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: bounce 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .logo-text {
+            font-size: 2.3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: #999;
+            font-size: 0.95em;
+            margin-bottom: 35px;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .upload-form {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-label {
+            font-weight: 700;
+            color: #2c3e50;
+            font-size: 0.95em;
+            letter-spacing: 0.3px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-input-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 35px 30px;
+            border: 2.5px dashed #667eea;
+            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08), rgba(118, 75, 162, 0.08));
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            color: #667eea;
+            flex-direction: column;
+        }
+
+        .file-input-label:hover {
+            border-color: #764ba2;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(102, 126, 234, 0.25);
+        }
+
+        .file-input-label i {
+            font-size: 1.8em;
+            animation: float 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .file-name {
+            font-size: 0.9em;
+            color: #667eea;
+            margin-top: 12px;
+            padding: 12px;
+            background: linear-gradient(135deg, #f0f4ff, #f5f9ff);
+            border-radius: 10px;
+            display: none;
+            border: 1px solid #e0e7ff;
+            font-weight: 600;
+        }
+
+        .file-name.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 12px;
+            font-size: 0.95em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .password-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            background: #f9fbff;
+        }
+
+        .password-hint {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 8px;
+            font-weight: 400;
+        }
+
+        .password-validation {
+            font-size: 0.85em;
+            margin-top: 6px;
+            padding: 6px 0;
+            display: none;
+            animation: slideDown 0.2s ease;
+        }
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-size: 1em;
+            margin-top: 20px;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.45);
+        }
+
+        .submit-btn:active:not(:disabled) {
+            transform: translateY(-2px);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-msg {
+            background: linear-gradient(135deg, #fee8e8, #fef0f0);
+            color: #c0392b;
+            padding: 16px 18px;
+            border-radius: 12px;
+            border-left: 5px solid #c0392b;
+            display: none;
+            animation: slideDown 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .error-msg.show {
+            display: block;
+        }
+
+        .success-msg {
+            background: linear-gradient(135deg, #e8f8f0, #f0fffb);
+            color: #27ae60;
+            padding: 16px 18px;
+            border-radius: 12px;
+            border-left: 5px solid #27ae60;
+            display: none;
+            animation: slideDown 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95em;
+        }
+
+        .success-msg.show {
+            display: block;
+        }
+
+        .features-section {
+            margin-top: 50px;
+            padding-top: 50px;
+            border-top: 2px solid #f0f0f0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 2.2em;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-text {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+
+        @media (max-width: 600px) {
+            .upload-container {
+                padding: 40px 25px;
+            }
+
+            .logo-icon {
+                font-size: 2.8em;
+            }
+
+            .logo-text {
+                font-size: 1.8em;
+            }
+
+            .features-section {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                margin-top: 30px;
+            }
+
+            .file-input-label {
+                padding: 25px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="upload-container">
+        <div class="logo-section">
+            <div class="logo-icon">💰</div>
+            <div class="logo-text">PhonePay Analytics</div>
+            <div class="subtitle">Upload your transaction statement to get started</div>
+        </div>
+
+        <form class="upload-form" id="uploadForm">
+            <div class="form-group">
+                <label class="form-label">📄 Select PDF Statement</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="pdfFile" accept=".pdf" required>
+                    <label class="file-input-label" for="pdfFile">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <span>Click to upload or drag & drop</span>
+                    </label>
+                    <div class="file-name" id="fileName"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🔐 Password <span style="color: #e74c3c;">*</span></label>
+                <input 
+                    type="password" 
+                    class="password-input" 
+                    id="password" 
+                    placeholder="Enter PDF password or 'none' if not encrypted"
+                    required
+                >
+                <div class="password-hint">Required: Enter password or type 'none' if PDF is not protected</div>
+                <div class="password-validation" id="passwordValidation"></div>
+            </div>
+
+            <div class="error-msg" id="errorMsg"></div>
+            <div class="success-msg" id="successMsg"></div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span class="loading-spinner" id="spinner"></span>
+                <span id="btnText">Analyze Statement</span>
+            </button>
+        </form>
+
+        <div class="features-section">
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                <div class="feature-text">Smart Analytics</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-tags"></i></div>
+                <div class="feature-text">Auto Categorization</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="feature-text">Secure Processing</div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-icon"><i class="fas fa-lightning-bolt"></i></div>
+                <div class="feature-text">Instant Results</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const pdfInput = document.getElementById('pdfFile');
+        const fileNameDisplay = document.getElementById('fileName');
+        const form = document.getElementById('uploadForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const spinner = document.getElementById('spinner');
+        const btnText = document.getElementById('btnText');
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+
+        // File input change
+        pdfInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                const fileName = e.target.files[0].name;
+                fileNameDisplay.textContent = `✓ ${fileName}`;
+                fileNameDisplay.classList.add('show');
+            } else {
+                fileNameDisplay.classList.remove('show');
+            }
+        });
+
+        // Drag and drop
+        const fileLabel = document.querySelector('.file-input-label');
+        fileLabel.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileLabel.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15))';
+            fileLabel.style.borderColor = '#764ba2';
+        });
+
+        fileLabel.addEventListener('dragleave', () => {
+            fileLabel.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05))';
+            fileLabel.style.borderColor = '#667eea';
+        });
+
+        fileLabel.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileLabel.style.background = 'linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05))';
+            fileLabel.style.borderColor = '#667eea';
+            
+            if (e.dataTransfer.files.length > 0) {
+                pdfInput.files = e.dataTransfer.files;
+                const event = new Event('change', { bubbles: true });
+                pdfInput.dispatchEvent(event);
+            }
+        });
+
+        // Real-time password validation
+        const passwordInput = document.getElementById('password');
+        const passwordValidation = document.getElementById('passwordValidation');
+        
+        passwordInput.addEventListener('input', (e) => {
+            const pwd = e.target.value.trim();
+            if (pwd.length === 0) {
+                passwordValidation.innerHTML = '<span style="color: #e74c3c; font-size: 0.85em;"><i class="fas fa-times-circle"></i> Password is required</span>';
+                passwordValidation.style.display = 'block';
+            } else if (pwd.length < 2 && pwd.toLowerCase() !== 'none') {
+                passwordValidation.innerHTML = '<span style="color: #f39c12; font-size: 0.85em;"><i class="fas fa-exclamation-circle"></i> Enter a valid password or type "none"</span>';
+                passwordValidation.style.display = 'block';
+            } else {
+                passwordValidation.innerHTML = '<span style="color: #27ae60; font-size: 0.85em;"><i class="fas fa-check-circle"></i> Valid password</span>';
+                passwordValidation.style.display = 'block';
+            }
+        });
+
+        // Form submission with comprehensive error handling
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            errorMsg.classList.remove('show');
+            successMsg.classList.remove('show');
+
+            // File validation
+            const file = pdfInput.files[0];
+            if (!file) {
+                showError('📁 Please select a PDF file');
+                return;
+            }
+
+            // File type validation
+            if (!file.type.includes('pdf') && !file.name.endsWith('.pdf')) {
+                showError('📁 Invalid file type. Please upload a PDF file only');
+                return;
+            }
+
+            // File size validation (max 50MB)
+            const maxFileSize = 50 * 1024 * 1024;
+            if (file.size > maxFileSize) {
+                showError('📁 File size exceeds 50MB. Please upload a smaller file');
+                return;
+            }
+
+            // File size too small validation (min 10KB)
+            if (file.size < 10 * 1024) {
+                showError('📁 File is too small. Please check if the PDF is valid');
+                return;
+            }
+
+            // Password validation
+            const password = passwordInput.value.trim();
+            if (!password) {
+                showError('🔐 Password is required. Enter password or type "none" if not encrypted');
+                passwordValidation.innerHTML = '<span style="color: #e74c3c; font-size: 0.85em;"><i class="fas fa-times-circle"></i> Password is required</span>';
+                passwordValidation.style.display = 'block';
+                return;
+            }
+
+            if (password.length < 2 && password.toLowerCase() !== 'none') {
+                showError('🔐 Invalid password. Enter a valid password or type "none"');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            spinner.style.display = 'inline-block';
+            btnText.textContent = 'Processing...';
+
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('password', password.toLowerCase() === 'none' ? '' : password);
+
+                const response = await fetch('/api/transactions/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.text();
+
+                if (response.ok) {
+                    showSuccess('✅ PDF uploaded and processed successfully! Redirecting...');
+                    setTimeout(() => {
+                        window.location.href = '/dashboard.html';
+                    }, 1500);
+                } else if (response.status === 400) {
+                    showError('⚠️ Invalid PDF: ' + (result || 'The PDF could not be processed. Check if it\'s valid.'));
+                } else if (response.status === 401) {
+                    showError('🔐 Wrong password: The password entered is incorrect');
+                } else if (response.status === 413) {
+                    showError('📁 File too large: Maximum file size is 50MB');
+                } else if (response.status === 500) {
+                    showError('❌ Server error: ' + (result || 'Please try again later'));
+                } else {
+                    showError('❌ Error: ' + (result || 'Failed to process PDF. Please check the file.'));
+                }
+            } catch (error) {
+                console.error('Upload error:', error);
+                
+                // Network error handling
+                if (!navigator.onLine) {
+                    showError('🌐 No internet connection. Please check your network');
+                } else if (error.message.includes('timeout')) {
+                    showError('⏱️ Request timeout. The file is taking too long to process. Try a smaller file');
+                } else {
+                    showError('❌ Error: ' + error.message + '. Please check the PDF and try again');
+                }
+            } finally {
+                submitBtn.disabled = false;
+                spinner.style.display = 'none';
+                btnText.textContent = 'Analyze Statement';
+            }
+        });
+
+        function showError(msg) {
+            errorMsg.textContent = msg;
+            errorMsg.classList.add('show');
+            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function showSuccess(msg) {
+            successMsg.textContent = msg;
+            successMsg.classList.add('show');
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Page load validations
+        window.addEventListener('load', () => {
+            // Check if browser supports file API
+            if (!window.File || !window.FileReader) {
+                showError('Your browser does not support file upload. Please use a modern browser');
+            }
+
+            // Check internet connection on load
+            if (!navigator.onLine) {
+                showError('🌐 No internet connection detected. Please connect to the internet');
+            }
+        });
+
+        // Monitor internet connection
+        window.addEventListener('offline', () => {
+            showError('🌐 Internet connection lost. Please reconnect');
+        });
+
+        window.addEventListener('online', () => {
+            errorMsg.classList.remove('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1217 @@
+[ {
+  "transactionDate" : "2020-07-22",
+  "transactionTime" : "21:33:00",
+  "description" : "Paid to Neeraj Sharma",
+  "transactionId" : "P2007222132563724330326",
+  "utr" : "020421947505",
+  "type" : "DEBIT",
+  "amount" : 100.0
+}, {
+  "transactionDate" : "2020-08-28",
+  "transactionTime" : "21:50:00",
+  "description" : "Paid to SEEMAKUMARI",
+  "transactionId" : "P2008282150276734131467",
+  "utr" : "024184484711",
+  "type" : "DEBIT",
+  "amount" : 200.0
+}, {
+  "transactionDate" : "2020-08-29",
+  "transactionTime" : "21:05:00",
+  "description" : "Paid to PhonePe",
+  "transactionId" : "N2008292105399317833152",
+  "utr" : "024221538719",
+  "type" : "DEBIT",
+  "amount" : 49.0
+}, {
+  "transactionDate" : "2020-08-30",
+  "transactionTime" : "23:28:00",
+  "description" : "Paid to Ms sharma",
+  "transactionId" : "P2008302328192754681187",
+  "utr" : "024323800941",
+  "type" : "DEBIT",
+  "amount" : 900.0
+}, {
+  "transactionDate" : "2020-09-07",
+  "transactionTime" : "21:26:00",
+  "description" : "Received from Sanjay Ganpat Shelke",
+  "transactionId" : "P2009072126042141389996",
+  "utr" : "025163651597",
+  "type" : "CREDIT",
+  "amount" : 5000.0
+}, {
+  "transactionDate" : "2020-09-08",
+  "transactionTime" : "13:38:00",
+  "description" : "Paid to PhonePe",
+  "transactionId" : "N2009081338080994814051",
+  "utr" : "025213810089",
+  "type" : "DEBIT",
+  "amount" : 149.0
+}, {
+  "transactionDate" : "2020-09-12",
+  "transactionTime" : "13:57:00",
+  "description" : "Paid to Mahaveer Photo",
+  "transactionId" : "P2009121357289933952550",
+  "utr" : "025626372340",
+  "type" : "DEBIT",
+  "amount" : 125.0
+}, {
+  "transactionDate" : "2020-09-16",
+  "transactionTime" : "18:28:00",
+  "description" : "Paid to Ershad Bhaji Market",
+  "transactionId" : "P2009161828497698801303",
+  "utr" : "026072459675",
+  "type" : "DEBIT",
+  "amount" : 45.0
+}, {
+  "transactionDate" : "2020-09-16",
+  "transactionTime" : "18:30:00",
+  "description" : "Paid to Mamta Sweet",
+  "transactionId" : "P2009161830277811990250",
+  "utr" : "026018092919",
+  "type" : "DEBIT",
+  "amount" : 70.0
+}, {
+  "transactionDate" : "2020-09-16",
+  "transactionTime" : "18:35:00",
+  "description" : "Paid to Jay Ganesh Farsana",
+  "transactionId" : "P2009161835563398330866",
+  "utr" : "026054874568",
+  "type" : "DEBIT",
+  "amount" : 40.0
+}, {
+  "transactionDate" : "2020-09-16",
+  "transactionTime" : "18:45:00",
+  "description" : "Paid to PRAKASH BAGGARAM BARFA",
+  "transactionId" : "P2009161845463279263544",
+  "utr" : "026036367623",
+  "type" : "DEBIT",
+  "amount" : 208.0
+}, {
+  "transactionDate" : "2020-10-01",
+  "transactionTime" : "20:03:00",
+  "description" : "Paid to YES BANK LIMITED",
+  "transactionId" : "N2010012003155343841510",
+  "utr" : "027503462697",
+  "type" : "DEBIT",
+  "amount" : 5800.0
+}, {
+  "transactionDate" : "2020-11-04",
+  "transactionTime" : "20:22:00",
+  "description" : "Paid to mamta sweets",
+  "transactionId" : "P2011042022206511604273",
+  "utr" : "030929005095",
+  "type" : "DEBIT",
+  "amount" : 130.0
+}, {
+  "transactionDate" : "2020-12-07",
+  "transactionTime" : "11:45:00",
+  "description" : "Received from Kishor Patwari",
+  "transactionId" : "P2012071145185530270636",
+  "utr" : "034224252685",
+  "type" : "CREDIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2020-12-08",
+  "transactionTime" : "10:33:00",
+  "description" : "Received from Nilesh",
+  "transactionId" : "T2012081032271573428731",
+  "utr" : "034305665564",
+  "type" : "CREDIT",
+  "amount" : 140.0
+}, {
+  "transactionDate" : "2021-02-08",
+  "transactionTime" : "19:54:00",
+  "description" : "Paid to jonny Mujmule",
+  "transactionId" : "T2102081954208675188420",
+  "utr" : "103944471486",
+  "type" : "DEBIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2021-02-20",
+  "transactionTime" : "03:20:00",
+  "description" : "Paid to Ola",
+  "transactionId" : "T2102200320110199578649",
+  "utr" : "105153209667",
+  "type" : "DEBIT",
+  "amount" : 156.0
+}, {
+  "transactionDate" : "2021-03-01",
+  "transactionTime" : "20:57:00",
+  "description" : "Paid to RJ FITNESS AND WELLNESS CLUB",
+  "transactionId" : "T2103012057460359025325",
+  "utr" : "106014131912",
+  "type" : "DEBIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2021-03-31",
+  "transactionTime" : "14:24:00",
+  "description" : "Bill paid - Electricity",
+  "transactionId" : "N2103311424222245328395",
+  "utr" : "109031768953",
+  "type" : "DEBIT",
+  "amount" : 5330.0
+}, {
+  "transactionDate" : "2021-04-05",
+  "transactionTime" : "12:56:00",
+  "description" : "Received from Akshay Labhe",
+  "transactionId" : "T2104051256259216091044",
+  "utr" : "109509818327",
+  "type" : "CREDIT",
+  "amount" : 250.0
+}, {
+  "transactionDate" : "2021-04-30",
+  "transactionTime" : "01:24:00",
+  "description" : "Bill paid - Electricity",
+  "transactionId" : "N2104300124136524790496",
+  "utr" : "112046039655",
+  "type" : "DEBIT",
+  "amount" : 2890.0
+}, {
+  "transactionDate" : "2021-05-21",
+  "transactionTime" : "22:46:00",
+  "description" : "Paid to Ajay Guru",
+  "transactionId" : "T2105212246199432898368",
+  "utr" : "114117812713",
+  "type" : "DEBIT",
+  "amount" : 1500.0
+}, {
+  "transactionDate" : "2021-06-17",
+  "transactionTime" : "21:51:00",
+  "description" : "Received from Vikas Talikhede",
+  "transactionId" : "T2106172150574735522994",
+  "utr" : "116882897052",
+  "type" : "CREDIT",
+  "amount" : 5000.0
+}, {
+  "transactionDate" : "2021-06-29",
+  "transactionTime" : "14:31:00",
+  "description" : "Bill paid - Electricity",
+  "transactionId" : "N2106291431366938792579",
+  "utr" : "118086809021",
+  "type" : "DEBIT",
+  "amount" : 2850.0
+}, {
+  "transactionDate" : "2021-07-07",
+  "transactionTime" : "14:04:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107071404504311517851",
+  "utr" : "118857094657",
+  "type" : "CREDIT",
+  "amount" : 1550.0
+}, {
+  "transactionDate" : "2021-07-07",
+  "transactionTime" : "19:12:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107071912091643942522",
+  "utr" : "118836208993",
+  "type" : "CREDIT",
+  "amount" : 700.0
+}, {
+  "transactionDate" : "2021-07-08",
+  "transactionTime" : "12:38:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107081238167804771455",
+  "utr" : "118923048055",
+  "type" : "CREDIT",
+  "amount" : 350.0
+}, {
+  "transactionDate" : "2021-07-08",
+  "transactionTime" : "20:39:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107082039290435481837",
+  "utr" : "118965909349",
+  "type" : "CREDIT",
+  "amount" : 1000.0
+}, {
+  "transactionDate" : "2021-07-09",
+  "transactionTime" : "23:47:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107092347141584771767",
+  "utr" : "119054213626",
+  "type" : "CREDIT",
+  "amount" : 350.0
+}, {
+  "transactionDate" : "2021-07-12",
+  "transactionTime" : "15:19:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107121519475560840987",
+  "utr" : "119355638043",
+  "type" : "CREDIT",
+  "amount" : 350.0
+}, {
+  "transactionDate" : "2021-07-13",
+  "transactionTime" : "12:50:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107131250174253235663",
+  "utr" : "119410611492",
+  "type" : "CREDIT",
+  "amount" : 700.0
+}, {
+  "transactionDate" : "2021-07-14",
+  "transactionTime" : "10:26:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107141026170420083038",
+  "utr" : "119517979825",
+  "type" : "CREDIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2021-07-15",
+  "transactionTime" : "12:57:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107151257338471549798",
+  "utr" : "119667766212",
+  "type" : "CREDIT",
+  "amount" : 700.0
+}, {
+  "transactionDate" : "2021-07-15",
+  "transactionTime" : "19:37:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2107151937538550083095",
+  "utr" : "119650977298",
+  "type" : "CREDIT",
+  "amount" : 1050.0
+}, {
+  "transactionDate" : "2021-07-17",
+  "transactionTime" : "19:18:00",
+  "description" : "Paid to Shyam",
+  "transactionId" : "T2107171918319757669435",
+  "utr" : "119854410314",
+  "type" : "DEBIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2021-08-06",
+  "transactionTime" : "16:20:00",
+  "description" : "Wallet Top-up",
+  "transactionId" : "NX21080616202812515896901",
+  "utr" : "121806939175",
+  "type" : "DEBIT",
+  "amount" : 600.0
+}, {
+  "transactionDate" : "2021-08-06",
+  "transactionTime" : "16:33:00",
+  "description" : "Paid to Ola",
+  "transactionId" : "T2108061633457538171798",
+  "utr" : "Debited from Wallet",
+  "type" : "DEBIT",
+  "amount" : 132021.0
+}, {
+  "transactionDate" : "2021-08-26",
+  "transactionTime" : "14:15:00",
+  "description" : "Paid to Ola",
+  "transactionId" : "T2108261415529645314694",
+  "utr" : "123814289630",
+  "type" : "DEBIT",
+  "amount" : 305.0
+}, {
+  "transactionDate" : "2021-09-02",
+  "transactionTime" : "15:54:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2109021554345648552368",
+  "utr" : "124572581558",
+  "type" : "CREDIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2021-09-03",
+  "transactionTime" : "21:54:00",
+  "description" : "Paid to NH 37 DHABA",
+  "transactionId" : "T2109032154003440245366",
+  "utr" : "124689059416",
+  "type" : "DEBIT",
+  "amount" : 4175.0
+}, {
+  "transactionDate" : "2021-09-03",
+  "transactionTime" : "23:14:00",
+  "description" : "Received from Madhavarao Teketi",
+  "transactionId" : "T2109032314302141926483",
+  "utr" : "124689390853",
+  "type" : "CREDIT",
+  "amount" : 850.0
+}, {
+  "transactionDate" : "2021-09-09",
+  "transactionTime" : "19:51:00",
+  "description" : "Paid to Vikas Enterprises",
+  "transactionId" : "T2109091951039466170308",
+  "utr" : "125254457980",
+  "type" : "DEBIT",
+  "amount" : 190.0
+}, {
+  "transactionDate" : "2021-09-20",
+  "transactionTime" : "19:45:00",
+  "description" : "Paid to Vikas Talikhede",
+  "transactionId" : "T2109201944586170472023",
+  "utr" : "126315921814",
+  "type" : "DEBIT",
+  "amount" : 900.0
+}, {
+  "transactionDate" : "2021-10-04",
+  "transactionTime" : "13:12:00",
+  "description" : "Bill paid - Electricity",
+  "transactionId" : "NX21100413120931692201801",
+  "utr" : "Debited from XX0001",
+  "type" : "DEBIT",
+  "amount" : 52021.0
+}, {
+  "transactionDate" : "2021-10-17",
+  "transactionTime" : "16:42:00",
+  "description" : "Paid to LENSKART",
+  "transactionId" : "C2110171642143892240971",
+  "utr" : "129063326445",
+  "type" : "DEBIT",
+  "amount" : 2996.0
+}, {
+  "transactionDate" : "2021-10-26",
+  "transactionTime" : "22:20:00",
+  "description" : "Received from nikhilshivle",
+  "transactionId" : "T2110262219572278767951",
+  "utr" : "129933158628",
+  "type" : "CREDIT",
+  "amount" : 3000.0
+}, {
+  "transactionDate" : "2021-10-29",
+  "transactionTime" : "12:40:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2110291240064049099100",
+  "utr" : "130244336190",
+  "type" : "CREDIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2021-10-29",
+  "transactionTime" : "23:28:00",
+  "description" : "Paid to Myntra",
+  "transactionId" : "T2110292328561581807700",
+  "utr" : "130249127739",
+  "type" : "DEBIT",
+  "amount" : 1578.0
+}, {
+  "transactionDate" : "2021-10-31",
+  "transactionTime" : "14:08:00",
+  "description" : "Refund Received",
+  "transactionId" : "T2110292328561581807700",
+  "utr" : "130414330040",
+  "type" : "CREDIT",
+  "amount" : 789.0
+}, {
+  "transactionDate" : "2021-10-31",
+  "transactionTime" : "14:10:00",
+  "description" : "Payment Received",
+  "transactionId" : "T2110311410451681807491",
+  "utr" : "130414330040",
+  "type" : "CREDIT",
+  "amount" : 789.0
+}, {
+  "transactionDate" : "2021-10-31",
+  "transactionTime" : "18:41:00",
+  "description" : "Paid to ******5339",
+  "transactionId" : "T2110311841390036309860",
+  "utr" : "130450845706",
+  "type" : "DEBIT",
+  "amount" : 1250.0
+}, {
+  "transactionDate" : "2021-11-19",
+  "transactionTime" : "16:03:00",
+  "description" : "Paid to ******4488",
+  "transactionId" : "T2111191603110090164963",
+  "utr" : "132324410691",
+  "type" : "DEBIT",
+  "amount" : 5000.0
+}, {
+  "transactionDate" : "2021-11-20",
+  "transactionTime" : "10:05:00",
+  "description" : "Received from nikhilshivle",
+  "transactionId" : "T2111201005100446179461",
+  "utr" : "132468494005",
+  "type" : "CREDIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2021-11-24",
+  "transactionTime" : "14:55:00",
+  "description" : "Paid to Jio Mobility",
+  "transactionId" : "T2111241455194128746108",
+  "utr" : "132858274965",
+  "type" : "DEBIT",
+  "amount" : 555.0
+}, {
+  "transactionDate" : "2021-11-29",
+  "transactionTime" : "10:12:00",
+  "description" : "Paid to ******4488",
+  "transactionId" : "T2111291012382972780445",
+  "utr" : "133335192546",
+  "type" : "DEBIT",
+  "amount" : 5000.0
+}, {
+  "transactionDate" : "2021-12-05",
+  "transactionTime" : "13:33:00",
+  "description" : "Paid to Flipkart",
+  "transactionId" : "T2112051333061660650391",
+  "utr" : "133972055740",
+  "type" : "DEBIT",
+  "amount" : 7069.0
+}, {
+  "transactionDate" : "2021-12-10",
+  "transactionTime" : "19:43:00",
+  "description" : "Paid to avinash barate",
+  "transactionId" : "T2112101943092281701711",
+  "utr" : "134460399427",
+  "type" : "DEBIT",
+  "amount" : 400.0
+}, {
+  "transactionDate" : "2021-12-12",
+  "transactionTime" : "13:10:00",
+  "description" : "Paid to Myntra",
+  "transactionId" : "T2112121310511520674298",
+  "utr" : "134681443074",
+  "type" : "DEBIT",
+  "amount" : 4136.0
+}, {
+  "transactionDate" : "2021-12-18",
+  "transactionTime" : "11:00:00",
+  "description" : "Paid to Myntra",
+  "transactionId" : "T2112181100374998466503",
+  "utr" : "135209903479",
+  "type" : "DEBIT",
+  "amount" : 2278.0
+}, {
+  "transactionDate" : "2021-12-19",
+  "transactionTime" : "12:49:00",
+  "description" : "Paid to Myntra",
+  "transactionId" : "T2112191249318416202196",
+  "utr" : "135334358226",
+  "type" : "DEBIT",
+  "amount" : 804.0
+}, {
+  "transactionDate" : "2021-12-19",
+  "transactionTime" : "12:50:00",
+  "description" : "Refund Received",
+  "transactionId" : "T2112181100374998466503",
+  "utr" : "135355064187",
+  "type" : "CREDIT",
+  "amount" : 1439.0
+}, {
+  "transactionDate" : "2021-12-19",
+  "transactionTime" : "12:50:00",
+  "description" : "Payment Received",
+  "transactionId" : "T2112191250416446893817",
+  "utr" : "135355064187",
+  "type" : "CREDIT",
+  "amount" : 1439.0
+}, {
+  "transactionDate" : "2021-12-25",
+  "transactionTime" : "14:58:00",
+  "description" : "Paid to Ram Gochade",
+  "transactionId" : "T2112251458106503904406",
+  "utr" : "135984480683",
+  "type" : "DEBIT",
+  "amount" : 4200.0
+}, {
+  "transactionDate" : "2021-12-25",
+  "transactionTime" : "15:44:00",
+  "description" : "Paid to Ram Gochade",
+  "transactionId" : "T2112251544191221462658",
+  "utr" : "'135991351077",
+  "type" : "DEBIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2021-12-26",
+  "transactionTime" : "13:33:00",
+  "description" : "Received from ******4812",
+  "transactionId" : "T2112261333400153878700",
+  "utr" : "136039443406",
+  "type" : "CREDIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2021-12-30",
+  "transactionTime" : "16:15:00",
+  "description" : "Bill paid - Electricity",
+  "transactionId" : "NX21123016151270909419231",
+  "utr" : "136441712765",
+  "type" : "DEBIT",
+  "amount" : 2860.0
+}, {
+  "transactionDate" : "2022-02-02",
+  "transactionTime" : "14:34:00",
+  "description" : "Paid to SHAIKH KHAYUUM",
+  "transactionId" : "T2202021434020188538571",
+  "utr" : "203372754746",
+  "type" : "DEBIT",
+  "amount" : 1000.0
+}, {
+  "transactionDate" : "2022-02-12",
+  "transactionTime" : "15:41:00",
+  "description" : "Paid to Akash Rajesh Atole",
+  "transactionId" : "T2202121541061769293081",
+  "utr" : "204369693549",
+  "type" : "DEBIT",
+  "amount" : 930.0
+}, {
+  "transactionDate" : "2022-02-16",
+  "transactionTime" : "10:22:00",
+  "description" : "Paid to Jio Mobility",
+  "transactionId" : "T2202161022411976065517",
+  "utr" : "204783785471",
+  "type" : "DEBIT",
+  "amount" : 666.0
+}, {
+  "transactionDate" : "2022-03-04",
+  "transactionTime" : "17:59:00",
+  "description" : "Received from purushottam pujari",
+  "transactionId" : "T2203041759246089040268",
+  "utr" : "206354917797",
+  "type" : "CREDIT",
+  "amount" : 1300.0
+}, {
+  "transactionDate" : "2022-03-08",
+  "transactionTime" : "17:52:00",
+  "description" : "Received from Shyam",
+  "transactionId" : "T2203081752340556261567",
+  "utr" : "206781575790",
+  "type" : "CREDIT",
+  "amount" : 1000.0
+}, {
+  "transactionDate" : "2022-04-04",
+  "transactionTime" : "13:18:00",
+  "description" : "Received from purushottam pujari",
+  "transactionId" : "T2204041318300091410923",
+  "utr" : "209442478719",
+  "type" : "CREDIT",
+  "amount" : 5000.0
+}, {
+  "transactionDate" : "2022-04-15",
+  "transactionTime" : "14:10:00",
+  "description" : "Paid to Myntra",
+  "transactionId" : "T2204151410198569667660",
+  "utr" : "210583673328",
+  "type" : "DEBIT",
+  "amount" : 1355.0
+}, {
+  "transactionDate" : "2022-05-15",
+  "transactionTime" : "13:11:00",
+  "description" : "Paid to Flipkart",
+  "transactionId" : "T2205151311084962322959",
+  "utr" : "213527812708",
+  "type" : "DEBIT",
+  "amount" : 334.0
+}, {
+  "transactionDate" : "2022-07-25",
+  "transactionTime" : "13:24:00",
+  "description" : "Received from RAvikiran Panjabrao Rathod",
+  "transactionId" : "T2207251324095209478492",
+  "utr" : "220617468056",
+  "type" : "CREDIT",
+  "amount" : 4500.0
+}, {
+  "transactionDate" : "2022-08-04",
+  "transactionTime" : "13:40:00",
+  "description" : "Paid to Jio Mobility",
+  "transactionId" : "T2208041340305376002571",
+  "utr" : "221630368490",
+  "type" : "DEBIT",
+  "amount" : 719.0
+}, {
+  "transactionDate" : "2022-08-13",
+  "transactionTime" : "23:55:00",
+  "description" : "Paid to Ganesh Somnath Jadhav",
+  "transactionId" : "T2208132355448169946342",
+  "utr" : "222555373748",
+  "type" : "DEBIT",
+  "amount" : 6305.0
+}, {
+  "transactionDate" : "2022-08-17",
+  "transactionTime" : "09:50:00",
+  "description" : "Received from purushottam pujari",
+  "transactionId" : "T2208170950490363575187",
+  "utr" : "222938848132",
+  "type" : "CREDIT",
+  "amount" : 4000.0
+}, {
+  "transactionDate" : "2022-08-28",
+  "transactionTime" : "19:39:00",
+  "description" : "Paid to Arvind Salunke",
+  "transactionId" : "T2208281939395524120632",
+  "utr" : "224085913980",
+  "type" : "DEBIT",
+  "amount" : 40.0
+}, {
+  "transactionDate" : "2022-09-21",
+  "transactionTime" : "16:43:00",
+  "description" : "Received from purushottam pujari",
+  "transactionId" : "T2209211643020747033400",
+  "utr" : "226478108165",
+  "type" : "CREDIT",
+  "amount" : 7000.0
+}, {
+  "transactionDate" : "2022-09-26",
+  "transactionTime" : "14:18:00",
+  "description" : "Paid to Vikas Taware Swapnali Taware",
+  "transactionId" : "T2209261418538587812320",
+  "utr" : "226925146205",
+  "type" : "DEBIT",
+  "amount" : 2800.0
+}, {
+  "transactionDate" : "2022-10-27",
+  "transactionTime" : "10:59:00",
+  "description" : "Received from Dattatray Prakash Ghochade",
+  "transactionId" : "T2210271059197393136010",
+  "utr" : "230019296356",
+  "type" : "CREDIT",
+  "amount" : 10.0
+}, {
+  "transactionDate" : "2022-11-19",
+  "transactionTime" : "16:25:00",
+  "description" : "Paid to Sai Parking",
+  "transactionId" : "T2211191625504860938514",
+  "utr" : "232373054145",
+  "type" : "DEBIT",
+  "amount" : 5.0
+}, {
+  "transactionDate" : "2022-11-28",
+  "transactionTime" : "21:17:00",
+  "description" : "Paid to SWIGGY",
+  "transactionId" : "T2211282117361953063687",
+  "utr" : "233230614913",
+  "type" : "DEBIT",
+  "amount" : 547.0
+}, {
+  "transactionDate" : "2022-11-29",
+  "transactionTime" : "15:22:00",
+  "description" : "Paid to Zomato Ltd",
+  "transactionId" : "T2211291522046347052588",
+  "utr" : "233311856640",
+  "type" : "DEBIT",
+  "amount" : 1377.91
+}, {
+  "transactionDate" : "2022-12-14",
+  "transactionTime" : "18:52:00",
+  "description" : "Paid to Flipkart",
+  "transactionId" : "T2212141852457452959617",
+  "utr" : "271470506060",
+  "type" : "DEBIT",
+  "amount" : 339.0
+}, {
+  "transactionDate" : "2023-01-04",
+  "transactionTime" : "16:16:00",
+  "description" : "Paid to SWIGGYINSTAMART",
+  "transactionId" : "T2301041615566690261089",
+  "utr" : "300464034948",
+  "type" : "DEBIT",
+  "amount" : 110.0
+}, {
+  "transactionDate" : "2023-01-22",
+  "transactionTime" : "18:17:00",
+  "description" : "Paid to Jio Mobility",
+  "transactionId" : "T2301221817145143359195",
+  "utr" : "302270286148",
+  "type" : "DEBIT",
+  "amount" : 239.0
+}, {
+  "transactionDate" : "2023-01-26",
+  "transactionTime" : "19:56:00",
+  "description" : "Paid to SWIGGY",
+  "transactionId" : "T2301261956421785769561",
+  "utr" : "339261378897",
+  "type" : "DEBIT",
+  "amount" : 623.0
+}, {
+  "transactionDate" : "2023-02-05",
+  "transactionTime" : "23:15:00",
+  "description" : "Paid to SWIGGY",
+  "transactionId" : "T2302052315046070364362",
+  "utr" : "340247222331",
+  "type" : "DEBIT",
+  "amount" : 157.0
+}, {
+  "transactionDate" : "2023-03-22",
+  "transactionTime" : "20:45:00",
+  "description" : "Paid to RAvikiran Panjabrao Rathod",
+  "transactionId" : "T2303222045138996455888",
+  "utr" : "344756453358",
+  "type" : "DEBIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2023-03-30",
+  "transactionTime" : "15:43:00",
+  "description" : "Received from RAvikiran Panjabrao Rathod",
+  "transactionId" : "T2303301543054680613459",
+  "utr" : "345556207816",
+  "type" : "CREDIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2023-04-13",
+  "transactionTime" : "16:33:00",
+  "description" : "Paid to Dunzo",
+  "transactionId" : "T2304131633062762765567",
+  "utr" : "310356835035",
+  "type" : "DEBIT",
+  "amount" : 72.0
+}, {
+  "transactionDate" : "2023-04-20",
+  "transactionTime" : "11:45:00",
+  "description" : "Paid to Jio Mobility",
+  "transactionId" : "T2304201145393994889493",
+  "utr" : "311056561951",
+  "type" : "DEBIT",
+  "amount" : 1102.0
+}, {
+  "transactionDate" : "2023-08-20",
+  "transactionTime" : "18:46:00",
+  "description" : "Paid to Haider khan",
+  "transactionId" : "T2308201846451842809758",
+  "utr" : "323221442325",
+  "type" : "DEBIT",
+  "amount" : 2600.0
+}, {
+  "transactionDate" : "2023-09-17",
+  "transactionTime" : "14:08:00",
+  "description" : "Paid to Hamid Ali",
+  "transactionId" : "T2309171408087409780202",
+  "utr" : "362623766716",
+  "type" : "DEBIT",
+  "amount" : 50.0
+}, {
+  "transactionDate" : "2023-09-30",
+  "transactionTime" : "23:12:00",
+  "description" : "Paid to ZOMATO",
+  "transactionId" : "T2309302312248746924956",
+  "utr" : "327319590703",
+  "type" : "DEBIT",
+  "amount" : 339.62
+}, {
+  "transactionDate" : "2023-10-10",
+  "transactionTime" : "22:18:00",
+  "description" : "Received from Dipak",
+  "transactionId" : "T2310102218232689585732",
+  "utr" : "328348645426",
+  "type" : "CREDIT",
+  "amount" : 3334.0
+}, {
+  "transactionDate" : "2023-11-11",
+  "transactionTime" : "20:30:00",
+  "description" : "Paid to Baswaraj Patil",
+  "transactionId" : "T2311112030414498759414",
+  "utr" : "368150732180",
+  "type" : "DEBIT",
+  "amount" : 350.0
+}, {
+  "transactionDate" : "2023-11-27",
+  "transactionTime" : "12:33:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2311271232597709048154",
+  "utr" : "369754459953",
+  "type" : "CREDIT",
+  "amount" : 110.0
+}, {
+  "transactionDate" : "2023-11-27",
+  "transactionTime" : "12:33:00",
+  "description" : "Received from Ashish kumar",
+  "transactionId" : "T2311271233335897537072",
+  "utr" : "369775959306",
+  "type" : "CREDIT",
+  "amount" : 110.0
+}, {
+  "transactionDate" : "2023-12-08",
+  "transactionTime" : "16:23:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2312081623017961748591",
+  "utr" : "370880592406",
+  "type" : "CREDIT",
+  "amount" : 4200.0
+}, {
+  "transactionDate" : "2023-12-08",
+  "transactionTime" : "16:28:00",
+  "description" : "Received from Dipak",
+  "transactionId" : "T2312081628326734792355",
+  "utr" : "370868651955",
+  "type" : "CREDIT",
+  "amount" : 4200.0
+}, {
+  "transactionDate" : "2024-02-01",
+  "transactionTime" : "13:32:00",
+  "description" : "Received from sonam yadav",
+  "transactionId" : "T2402011332207756751031",
+  "utr" : "439812163215",
+  "type" : "CREDIT",
+  "amount" : 95.0
+}, {
+  "transactionDate" : "2024-02-01",
+  "transactionTime" : "16:55:00",
+  "description" : "Received from Dipak",
+  "transactionId" : "T2402011655353094423869",
+  "utr" : "439855179137",
+  "type" : "CREDIT",
+  "amount" : 95.0
+}, {
+  "transactionDate" : "2024-03-21",
+  "transactionTime" : "14:12:00",
+  "description" : "Paid to Flipkart",
+  "transactionId" : "OM2403211412047149641106D",
+  "utr" : "444702118728",
+  "type" : "DEBIT",
+  "amount" : 484.0
+}, {
+  "transactionDate" : "2024-03-22",
+  "transactionTime" : "09:15:00",
+  "description" : "Refund Received",
+  "transactionId" : "OM2403211412047149641106D",
+  "utr" : "408253427454",
+  "type" : "CREDIT",
+  "amount" : 185.0
+}, {
+  "transactionDate" : "2024-03-22",
+  "transactionTime" : "09:15:00",
+  "description" : "Payment Received",
+  "transactionId" : "T2403220915205690330630",
+  "utr" : "408253427454",
+  "type" : "CREDIT",
+  "amount" : 185.0
+}, {
+  "transactionDate" : "2024-03-31",
+  "transactionTime" : "22:04:00",
+  "description" : "Refund Received",
+  "transactionId" : "OM2403211412047149641106D",
+  "utr" : "409162068934",
+  "type" : "CREDIT",
+  "amount" : 299.0
+}, {
+  "transactionDate" : "2024-03-31",
+  "transactionTime" : "22:04:00",
+  "description" : "Payment Received",
+  "transactionId" : "T2403312204163506700653",
+  "utr" : "409162068934",
+  "type" : "CREDIT",
+  "amount" : 299.0
+}, {
+  "transactionDate" : "2024-04-04",
+  "transactionTime" : "22:43:00",
+  "description" : "Received from Dattatray Prakash Ghochade",
+  "transactionId" : "T2404042243415461947166",
+  "utr" : "446181929782",
+  "type" : "CREDIT",
+  "amount" : 10.0
+}, {
+  "transactionDate" : "2024-04-04",
+  "transactionTime" : "23:18:00",
+  "description" : "Paid to D G TAILOR",
+  "transactionId" : "T2404042318420059349507",
+  "utr" : "409518073969",
+  "type" : "DEBIT",
+  "amount" : 10.0
+}, {
+  "transactionDate" : "2024-05-02",
+  "transactionTime" : "19:14:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2405021914018318689143",
+  "utr" : "448907519446",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-05-30",
+  "transactionTime" : "21:23:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2405302123355914001085",
+  "utr" : "451703666217",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-06-27",
+  "transactionTime" : "18:49:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2406271849365288951816",
+  "utr" : "454561472489",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-06-30",
+  "transactionTime" : "17:11:00",
+  "description" : "Paid to Hotel 712",
+  "transactionId" : "AC222406301711105425217944",
+  "utr" : "454897139201",
+  "type" : "DEBIT",
+  "amount" : 25.0
+}, {
+  "transactionDate" : "2024-07-31",
+  "transactionTime" : "19:23:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2407311923271997843354",
+  "utr" : "457909046078",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-09-01",
+  "transactionTime" : "15:27:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2409011527178348652108",
+  "utr" : "011032333027",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-09-29",
+  "transactionTime" : "09:52:00",
+  "description" : "Paid to Flipkart",
+  "transactionId" : "OM2409290951173954930469D",
+  "utr" : "296329595591",
+  "type" : "DEBIT",
+  "amount" : 3410.0
+}, {
+  "transactionDate" : "2024-09-29",
+  "transactionTime" : "22:20:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2409292220509491519277",
+  "utr" : "463989238276",
+  "type" : "CREDIT",
+  "amount" : 4710.0
+}, {
+  "transactionDate" : "2024-10-03",
+  "transactionTime" : "12:03:00",
+  "description" : "Paid to Ashish kumar",
+  "transactionId" : "T2410031203041123995941",
+  "utr" : "052075048362",
+  "type" : "DEBIT",
+  "amount" : 106.0
+}, {
+  "transactionDate" : "2024-10-06",
+  "transactionTime" : "18:54:00",
+  "description" : "Paid to RINKOO",
+  "transactionId" : "T2410061854514122334331",
+  "utr" : "276936043746",
+  "type" : "DEBIT",
+  "amount" : 45.0
+}, {
+  "transactionDate" : "2024-10-10",
+  "transactionTime" : "14:54:00",
+  "description" : "Paid to Ashish kumar",
+  "transactionId" : "T2410101454066076476962",
+  "utr" : "790338292406",
+  "type" : "DEBIT",
+  "amount" : 500.0
+}, {
+  "transactionDate" : "2024-10-11",
+  "transactionTime" : "20:27:00",
+  "description" : "Paid to SAPANA HRIDAYNATH BIRADAR",
+  "transactionId" : "T2410112027052353890114",
+  "utr" : "676463303272",
+  "type" : "DEBIT",
+  "amount" : 120.0
+}, {
+  "transactionDate" : "2024-10-14",
+  "transactionTime" : "18:14:00",
+  "description" : "Paid to Khandave Dairy Farm",
+  "transactionId" : "AC222410141814142031536049",
+  "utr" : "573952305781",
+  "type" : "DEBIT",
+  "amount" : 10.0
+}, {
+  "transactionDate" : "2024-10-15",
+  "transactionTime" : "21:01:00",
+  "description" : "Refund Received",
+  "transactionId" : "OM2409290951173954930469D",
+  "utr" : "428985607652",
+  "type" : "CREDIT",
+  "amount" : 1386.0
+}, {
+  "transactionDate" : "2024-10-15",
+  "transactionTime" : "21:01:00",
+  "description" : "Payment Received",
+  "transactionId" : "T2410152101212023575062",
+  "utr" : "428985607652",
+  "type" : "CREDIT",
+  "amount" : 1386.0
+}, {
+  "transactionDate" : "2024-11-02",
+  "transactionTime" : "13:54:00",
+  "description" : "Paid to Zomato Ltd",
+  "transactionId" : "T2411021354499782382287",
+  "utr" : "283126668832",
+  "type" : "DEBIT",
+  "amount" : 221.85
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:15:00",
+  "description" : "Received from shubhangi tale",
+  "transactionId" : "T2412041215337286369757",
+  "utr" : "540480844232",
+  "type" : "CREDIT",
+  "amount" : 265.0
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:15:00",
+  "description" : "Received from AMRENDRA KUMAR",
+  "transactionId" : "T2412041215467092397356",
+  "utr" : "208021649736",
+  "type" : "CREDIT",
+  "amount" : 265.0
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:19:00",
+  "description" : "Received from Saran Ragunathan",
+  "transactionId" : "T2412041219323300334722",
+  "utr" : "332898334490",
+  "type" : "CREDIT",
+  "amount" : 283.0
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:23:00",
+  "description" : "Received from shubhangi tale",
+  "transactionId" : "T2412041223452343964232",
+  "utr" : "929747912724",
+  "type" : "CREDIT",
+  "amount" : 18.0
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:28:00",
+  "description" : "Received from Akshay Labhe",
+  "transactionId" : "T2412041228491275129308",
+  "utr" : "142644602119",
+  "type" : "CREDIT",
+  "amount" : 265.0
+}, {
+  "transactionDate" : "2024-12-04",
+  "transactionTime" : "12:31:00",
+  "description" : "Received from newtec",
+  "transactionId" : "T2412041231451521881352",
+  "utr" : "191495865124",
+  "type" : "CREDIT",
+  "amount" : 283.0
+}, {
+  "transactionDate" : "2024-12-11",
+  "transactionTime" : "14:03:00",
+  "description" : "Received from AMRENDRA KUMAR",
+  "transactionId" : "T2412111403426789025737",
+  "utr" : "737138626691",
+  "type" : "CREDIT",
+  "amount" : 799.0
+}, {
+  "transactionDate" : "2024-12-25",
+  "transactionTime" : "17:26:00",
+  "description" : "Paid to ******6101",
+  "transactionId" : "T2412251726431451311889",
+  "utr" : "813135044916",
+  "type" : "DEBIT",
+  "amount" : 545.0
+}, {
+  "transactionDate" : "2025-01-04",
+  "transactionTime" : "18:23:00",
+  "description" : "Paid to Jio Prepaid Recharges",
+  "transactionId" : "T2501041823496778476796",
+  "utr" : "084795799037",
+  "type" : "DEBIT",
+  "amount" : 3599.0
+}, {
+  "transactionDate" : "2025-02-02",
+  "transactionTime" : "20:28:00",
+  "description" : "Paid to Jagali Kharataram Choudhary",
+  "transactionId" : "T2502022028220691467436",
+  "utr" : "324850461898",
+  "type" : "DEBIT",
+  "amount" : 20.0
+}, {
+  "transactionDate" : "2025-02-03",
+  "transactionTime" : "16:29:00",
+  "description" : "Paid to PRADNYA RAJARAM KADAM",
+  "transactionId" : "T2502031629517125604929",
+  "utr" : "340627516799",
+  "type" : "DEBIT",
+  "amount" : 100.0
+}, {
+  "transactionDate" : "2025-02-04",
+  "transactionTime" : "22:18:00",
+  "description" : "Received from RAvikiran Panjabrao Rathod",
+  "transactionId" : "T2502042218250879500664",
+  "utr" : "331113241920",
+  "type" : "CREDIT",
+  "amount" : 330.0
+}, {
+  "transactionDate" : "2025-02-04",
+  "transactionTime" : "22:18:00",
+  "description" : "Received from Dhananjay Dilip Pawar",
+  "transactionId" : "T2502042218508917496559",
+  "utr" : "465152125476",
+  "type" : "CREDIT",
+  "amount" : 330.0
+}, {
+  "transactionDate" : "2025-03-03",
+  "transactionTime" : "16:11:00",
+  "description" : "Paid to suresh kumavat",
+  "transactionId" : "T2503031610554345453619",
+  "utr" : "333355173329",
+  "type" : "DEBIT",
+  "amount" : 150.0
+}, {
+  "transactionDate" : "2025-03-03",
+  "transactionTime" : "21:48:00",
+  "description" : "Paid to suresh kumavat",
+  "transactionId" : "T2503032148373670699566",
+  "utr" : "770250599922",
+  "type" : "DEBIT",
+  "amount" : 100.0
+}, {
+  "transactionDate" : "2025-05-12",
+  "transactionTime" : "10:29:00",
+  "description" : "Paid to mahadev shivaji birajdar",
+  "transactionId" : "T2505121029174353722327",
+  "utr" : "290276384718",
+  "type" : "DEBIT",
+  "amount" : 2000.0
+}, {
+  "transactionDate" : "2025-06-22",
+  "transactionTime" : "18:15:00",
+  "description" : "Paid to Samruddhi Enterprises",
+  "transactionId" : "AC232506221815279634335470",
+  "utr" : "627546166525",
+  "type" : "DEBIT",
+  "amount" : 120.0
+}, {
+  "transactionDate" : "2025-07-01",
+  "transactionTime" : "11:49:00",
+  "description" : "Received from RAvikiran Panjabrao Rathod",
+  "transactionId" : "T2507011149085159603813",
+  "utr" : "843198854915",
+  "type" : "CREDIT",
+  "amount" : 700.0
+}, {
+  "transactionDate" : "2025-09-29",
+  "transactionTime" : "18:05:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2509291805364733380286",
+  "utr" : "103118257164",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+}, {
+  "transactionDate" : "2025-11-02",
+  "transactionTime" : "15:17:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2511021517379673668974",
+  "utr" : "857226563228",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+}, {
+  "transactionDate" : "2025-12-11",
+  "transactionTime" : "12:44:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2512111244382192416062",
+  "utr" : "206294933308",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+}, {
+  "transactionDate" : "2026-01-10",
+  "transactionTime" : "11:45:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2601101145506467996877",
+  "utr" : "683506251141",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+}, {
+  "transactionDate" : "2026-02-02",
+  "transactionTime" : "15:00:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2602021500450887722457",
+  "utr" : "046774550519",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+}, {
+  "transactionDate" : "2026-03-01",
+  "transactionTime" : "21:23:00",
+  "description" : "Received from Shubham Maruti khade",
+  "transactionId" : "T2603012122567728555659",
+  "utr" : "686544578708",
+  "type" : "CREDIT",
+  "amount" : 4929.0
+} ]

@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhonePay Transaction Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #ffffff;
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(15, 12, 41, 0.4);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            padding: 50px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 10px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 35px;
+            border-bottom: 2px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 14px 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            color: #999;
+            border-bottom: 3px solid transparent;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+
+        .tab-btn:hover {
+            color: #667eea;
+            border-bottom-color: #667eea;
+        }
+
+        .tab-btn.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: linear-gradient(to bottom, rgba(102, 126, 234, 0.05), transparent);
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 35px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8faff 0%, #f0f4ff 100%);
+            border-radius: 18px;
+            border: 1px solid #e8ecff;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.08);
+        }
+
+        .section h3 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-size: 1.35em;
+            font-weight: 700;
+        }
+
+        .top-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .top-item {
+            background: linear-gradient(135deg, #f8faff, #f5f9ff);
+            border: 1.5px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .top-item:hover {
+            transform: translateY(-4px);
+            border-color: #667eea;
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .rank-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2em;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .top-item-info {
+            flex: 1;
+        }
+
+        .top-item-name {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+
+        .top-item-amount {
+            font-size: 1.3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-item-count {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 4px;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        input, select {
+            padding: 12px 16px;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+        }
+
+        button {
+            padding: 12px 28px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(-1px);
+        }
+
+        .result {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        }
+
+        .result h4 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .result pre {
+            background: #f5f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            overflow-x: auto;
+            font-size: 0.9em;
+            color: #333;
+            border: 1px solid #e8ecff;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-card .label {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .stat-card .value {
+            font-size: 2em;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            overflow-y: visible;
+            margin-top: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            max-width: 100%;
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            min-width: 600px;
+            border-collapse: collapse;
+            background: white;
+            table-layout: auto;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.95em;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+            min-width: 120px;
+        }
+
+        td {
+            padding: 14px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            color: #333;
+            word-break: break-word;
+            min-width: 100px;
+        }
+
+        tr:hover {
+            background: #f9f9ff;
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            padding: 30px;
+            font-weight: 500;
+        }
+
+        .error {
+            color: #e74c3c;
+            padding: 18px;
+            background: #fee8e8;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #e74c3c;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #27ae60;
+            padding: 18px;
+            background: #e8f8f0;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #27ae60;
+            font-weight: 500;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .info-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            cursor: help;
+            font-size: 0.95em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .info-btn:hover {
+            transform: scale(1.12) rotate(10deg);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.4);
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 280px;
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: left;
+            border-radius: 10px;
+            padding: 14px;
+            position: absolute;
+            z-index: 1000;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -140px;
+            opacity: 0;
+            transition: opacity 0.3s;
+            font-size: 0.85em;
+            line-height: 1.5;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #2c3e50 transparent transparent transparent;
+        }
+
+        .info-btn:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .control-group {
+                flex-direction: column;
+            }
+
+            input, select, button {
+                width: 100%;
+            }
+
+            header h1 {
+                font-size: 1.9em;
+            }
+
+            .tabs {
+                overflow-x: auto;
+            }
+
+            .tooltip {
+                width: 200px;
+                margin-left: -100px;
+                font-size: 0.75em;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>💰 PhonePay Transaction Dashboard</h1>
+            <p>Smart Financial Analytics & Insights</p>
+        </header>
+
+        <div class="content">
+            <div class="tabs">
+                <button class="tab-btn active" onclick="switchTab('summary')">Summary</button>
+                <button class="tab-btn" onclick="switchTab('transactions')">Transactions</button>
+                <button class="tab-btn" onclick="switchTab('analysis')">Analysis</button>
+                <button class="tab-btn" onclick="switchTab('categories')">Categories</button>
+                <button class="tab-btn" onclick="switchTab('search')">Search</button>
+            </div>
+
+            <!-- SUMMARY TAB -->
+            <div id="summary" class="tab-content active">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📊 Account Summary</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows your total credit, debit, balance, and transaction counts in one overview</span>
+                        </button>
+                    </div>
+                    <button onclick="getSummary()">Get Summary</button>
+                    <div id="summaryResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💡 Spending Insights</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Displays income received and money spent (debits) with percentages</span>
+                        </button>
+                    </div>
+                    <button onclick="getSpendingInsights()">Get Insights</button>
+                    <div id="insightsResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📈 Account Insights</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows money sent out, money received, and current account balance</span>
+                        </button>
+                    </div>
+                    <button onclick="getInsights()">Get Insights</button>
+                    <div id="mainInsightsResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>🎯 Top 5 Money Receivers</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows the top 5 people from whom you received the most money</span>
+                        </button>
+                    </div>
+                    <button onclick="getTopReceivers()">Get Top Receivers</button>
+                    <div id="topReceiversResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💸 Top 5 Money Senders</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows the top 5 people to whom you sent the most money</span>
+                        </button>
+                    </div>
+                    <button onclick="getTopSenders()">Get Top Senders</button>
+                    <div id="topSendersResult"></div>
+                </div>
+            </div>
+
+            <!-- TRANSACTIONS TAB -->
+            <div id="transactions" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📋 All Transactions</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Displays all transactions (both debits and credits) with full details</span>
+                        </button>
+                    </div>
+                    <button onclick="getAllTransactions()">Get All Transactions</button>
+                    <div id="allTransactionsResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💰 Debited Transactions</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows all money spent from your account (outgoing transactions)</span>
+                        </button>
+                    </div>
+                    <button onclick="getDebitedTransactions()">Get Debited</button>
+                    <div id="debitedResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💳 Credited Transactions</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows all money received in your account (incoming transactions)</span>
+                        </button>
+                    </div>
+                    <button onclick="getCreditedTransactions()">Get Credited</button>
+                    <div id="creditedResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📅 Recent Transactions</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Fetches transactions from the last N days. Enter number of days to filter</span>
+                        </button>
+                    </div>
+                    <div class="control-group">
+                        <input type="number" id="recentDays" placeholder="Days" value="7" min="1">
+                        <button onclick="getRecentTransactions()">Get Recent</button>
+                    </div>
+                    <div id="recentResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📆 Transactions by Date Range</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Find all transactions between two specific dates. Select start and end dates</span>
+                        </button>
+                    </div>
+                    <div class="control-group">
+                        <input type="date" id="startDate">
+                        <input type="date" id="endDate">
+                        <button onclick="getTransactionsByDateRange()">Get Range</button>
+                    </div>
+                    <div id="dateRangeResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>⭐ Top Transactions</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows the highest amount transactions. Enter limit to set how many to display</span>
+                        </button>
+                    </div>
+                    <div class="control-group">
+                        <input type="number" id="topLimit" placeholder="Limit" value="10" min="1">
+                        <button onclick="getTopTransactions()">Get Top</button>
+                    </div>
+                    <div id="topResult"></div>
+                </div>
+            </div>
+
+            <!-- ANALYSIS TAB -->
+            <div id="analysis" class="tab-content">
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💵 Total Debit</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Calculates the sum of all money spent (debited) from your account</span>
+                        </button>
+                    </div>
+                    <button onclick="getTotalDebit()">Get Total Debit</button>
+                    <div id="debitTotalResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>💳 Total Credit</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Calculates the sum of all money received (credited) to your account</span>
+                        </button>
+                    </div>
+                    <button onclick="getTotalCredit()">Get Total Credit</button>
+                    <div id="creditTotalResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>⚖️ Account Balance</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Shows your current balance (Total Credit - Total Debit)</span>
+                        </button>
+                    </div>
+                    <button onclick="getBalance()">Get Balance</button>
+                    <div id="balanceResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📊 Average Transaction</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Calculates the average amount for debits and credits separately</span>
+                        </button>
+                    </div>
+                    <div class="control-group">
+                        <button onclick="getAverageDebit()">Avg Debit</button>
+                        <button onclick="getAverageCredit()">Avg Credit</button>
+                    </div>
+                    <div id="averageResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📈 Highest & Lowest</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Finds the largest and smallest transaction amounts in your account</span>
+                        </button>
+                    </div>
+                    <div class="control-group">
+                        <button onclick="getHighestTransaction()">Highest</button>
+                        <button onclick="getLowestTransaction()">Lowest</button>
+                    </div>
+                    <div id="extremeResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📅 Monthly Summary</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Groups transactions by month showing count and totals for debits and credits</span>
+                        </button>
+                    </div>
+                    <button onclick="getMonthlySummary()">Get Monthly Summary</button>
+                    <div id="monthlySummaryResult"></div>
+                </div>
+
+                <div class="section">
+                    <div class="section-header">
+                        <h3>📆 Daily Summary</h3>
+                        <button class="info-btn" title="Info">ℹ
+                            <span class="tooltip">Groups transactions by day showing count and totals for debits and credits</span>
+                        </button>
+                    </div>
+                    <button onclick="getDailySummary()">Get Daily Summary</button>
+                    <div id="dailySummaryResult"></div>
+                </div>
+            </div>
+
+            <!-- CATEGORIES TAB -->
+            <div id="categories" class="tab-content">
+                <div class="section">
+                    <h3>🏷️ Available Categories</h3>
+                    <button onclick="getCategories()">Get Categories</button>
+                    <div id="categoriesResult"></div>
+                </div>
+
+                <div class="section">
+                    <h3>💹 Category-wise Spending</h3>
+                    <button onclick="getCategoryWiseSpending()">Get Breakdown</button>
+                    <div id="categorySpendingResult"></div>
+                </div>
+
+                <div class="section">
+                    <h3>📊 Category Breakdown (with %)</h3>
+                    <button onclick="getCategoryBreakdown()">Get Breakdown</button>
+                    <div id="categoryBreakdownResult"></div>
+                </div>
+
+                <div class="section">
+                    <h3>🔝 Top Spending Categories</h3>
+                    <div class="control-group">
+                        <input type="number" id="categoryLimit" placeholder="Limit" value="5" min="1">
+                        <button onclick="getTopCategories()">Get Top</button>
+                    </div>
+                    <div id="topCategoriesResult"></div>
+                </div>
+
+                <div class="section">
+                    <h3>🏷️ Transactions by Category</h3>
+                    <div class="control-group">
+                        <select id="categorySelect">
+                            <option value="">Select Category</option>
+                            <option value="MOBILE">Mobile Recharge</option>
+                            <option value="UTILITIES">Bills & Utilities</option>
+                            <option value="FOOD">Food & Dining</option>
+                            <option value="SHOPPING">Shopping</option>
+                            <option value="ENTERTAINMENT">Entertainment</option>
+                            <option value="MEDICAL">Medical & Health</option>
+                            <option value="TRANSPORT">Transport & Travel</option>
+                            <option value="TRANSFER">Transfer & Payment</option>
+                            <option value="INCOME">Income & Deposits</option>
+                            <option value="GROCERIES">Groceries</option>
+                            <option value="ENTERTAINMENT_GAMING">Gaming</option>
+                        </select>
+                        <button onclick="getTransactionsByCategory()">Get Transactions</button>
+                    </div>
+                    <div id="categoryTransactionsResult"></div>
+                </div>
+            </div>
+
+            <!-- SEARCH TAB -->
+            <div id="search" class="tab-content">
+                <div class="section">
+                    <h3>🔍 Search Transactions</h3>
+                    <div class="control-group">
+                        <input type="text" id="searchKeyword" placeholder="Enter keyword (e.g., Mobile, Food, etc.)">
+                        <button onclick="searchTransactions()">Search</button>
+                    </div>
+                    <div id="searchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8080/api/transactions';
+
+        function switchTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function displayLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading">Loading...</div>';
+        }
+
+        function displayError(elementId, error) {
+            document.getElementById(elementId).innerHTML = `<div class="error">Error: ${error}</div>`;
+        }
+
+        function displaySuccess(elementId, message) {
+            document.getElementById(elementId).innerHTML = `<div class="success">${message}</div>`;
+        }
+
+        function displayResult(elementId, data) {
+            const result = document.getElementById(elementId);
+            result.innerHTML = `<div class="result"><h4>Response:</h4><pre>${JSON.stringify(data, null, 2)}</pre></div>`;
+        }
+
+        function displayStats(elementId, stats) {
+            let html = '<div class="stats-grid">';
+            for (const [key, value] of Object.entries(stats)) {
+                if (typeof value !== 'object' && key !== 'currency') {
+                    html += `<div class="stat-card"><div class="label">${key}</div><div class="value">${typeof value === 'number' ? value.toFixed(2) : value}</div></div>`;
+                }
+            }
+            html += '</div>';
+            document.getElementById(elementId).innerHTML = html;
+        }
+
+        function displayTable(elementId, columns, data) {
+            if (!data || data.length === 0) {
+                document.getElementById(elementId).innerHTML = '<div class="error">No data found</div>';
+                return;
+            }
+
+            const pageSize = 10;
+            const totalPages = Math.ceil(data.length / pageSize);
+            let currentPage = 1;
+
+            const container = document.getElementById(elementId);
+
+            function renderPage() {
+                const start = (currentPage - 1) * pageSize;
+                const end = start + pageSize;
+                const pageData = data.slice(start, end);
+
+                let html = `<div style="margin-bottom: 15px; color: #666; font-size: 0.9em;">Showing ${start + 1} to ${Math.min(end, data.length)} of ${data.length} records (Page ${currentPage}/${totalPages})</div>`;
+                html += '<div class="table-container"><table>';
+                html += '<thead><tr>';
+                columns.forEach(col => html += `<th>${col}</th>`);
+                html += '</tr></thead><tbody>';
+
+                pageData.forEach(row => {
+                    html += '<tr>';
+                    columns.forEach(col => html += `<td>${row[col] || '-'}</td>`);
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table></div>';
+
+                // Pagination controls
+                if (totalPages > 1) {
+                    html += '<div style="margin-top: 15px; text-align: center; display: flex; justify-content: center; gap: 5px; flex-wrap: wrap;">';
+                    
+                    if (currentPage > 1) {
+                        html += `<button onclick="document.getElementById('${elementId}').goToPage(${currentPage - 1})" style="padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">← Prev</button>`;
+                    }
+
+                    for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                        html += `<button onclick="document.getElementById('${elementId}').goToPage(${i})" style="padding: 8px 12px; ${i === currentPage ? 'background: #667eea; color: white;' : 'background: #eee;'} border: none; border-radius: 5px; cursor: pointer;">` + i + `</button>`;
+                    }
+
+                    if (currentPage < totalPages) {
+                        html += `<button onclick="document.getElementById('${elementId}').goToPage(${currentPage + 1})" style="padding: 8px 12px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">Next →</button>`;
+                    }
+
+                    html += '</div>';
+                }
+
+                container.innerHTML = html;
+            }
+
+            // Store pagination functions on the container element
+            container.goToPage = function(page) {
+                if (page >= 1 && page <= totalPages) {
+                    currentPage = page;
+                    renderPage();
+                }
+            };
+
+            renderPage();
+        }
+
+        // API Calls
+        function getSummary() {
+            const resultId = 'summaryResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/summary`)
+                .then(r => {
+                    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                    return r.json();
+                })
+                .then(data => {
+                    console.log('Summary data:', data);
+                    let html = '<div class="stats-grid">';
+                    html += `<div class="stat-card"><div class="label">Total Credit</div><div class="value">₹${(data.totalCredit || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Total Debit</div><div class="value">₹${(data.totalDebit || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Balance</div><div class="value">₹${(data.balance || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Credit Count</div><div class="value">${data.creditCount || 0}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Debit Count</div><div class="value">${data.debitCount || 0}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Total Transactions</div><div class="value">${data.totalTransactions || 0}</div></div>`;
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => {
+                    console.error('Error:', e);
+                    displayError(resultId, e.message);
+                });
+        }
+
+        function getSpendingInsights() {
+            const resultId = 'insightsResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/spending-insights`)
+                .then(r => {
+                    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                    return r.json();
+                })
+                .then(data => {
+                    console.log('Insights data:', data);
+                    let html = '<div class="stats-grid">';
+                    html += `<div class="stat-card"><div class="label">Total Income</div><div class="value">₹${(data.totalIncome || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Total Expense</div><div class="value">₹${(data.totalExpense || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Net Balance</div><div class="value">₹${(data.netBalance || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Avg Income</div><div class="value">₹${(data.averageIncome || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Avg Expense</div><div class="value">₹${(data.averageExpense || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Savings Rate</div><div class="value">${(data.savingsRate || 0).toFixed(2)}%</div></div>`;
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => {
+                    console.error('Error:', e);
+                    displayError(resultId, e.message);
+                });
+        }
+
+        function getInsights() {
+            const resultId = 'mainInsightsResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/insights`)
+                .then(r => {
+                    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                    return r.json();
+                })
+                .then(data => {
+                    console.log('Insights data:', data);
+                    let html = '<div class="stats-grid">';
+                    html += `<div class="stat-card"><div class="label">Total Sent</div><div class="value">₹${(data.totalSent || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Total Received</div><div class="value">₹${(data.totalReceived || 0).toFixed(2)}</div></div>`;
+                    html += `<div class="stat-card"><div class="label">Net Balance</div><div class="value">₹${(data.netBalance || 0).toFixed(2)}</div></div>`;
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => {
+                    console.error('Error:', e);
+                    displayError(resultId, e.message);
+                });
+        }
+
+        function getTopReceivers() {
+            const resultId = 'topReceiversResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => {
+                    // Filter credited transactions and group by description
+                    const creditedTxns = data.filter(t => t.type === 'CREDIT');
+                    const grouped = {};
+                    
+                    creditedTxns.forEach(txn => {
+                        const desc = txn.description || 'Unknown';
+                        if (!grouped[desc]) {
+                            grouped[desc] = { amount: 0, count: 0 };
+                        }
+                        grouped[desc].amount += txn.amount || 0;
+                        grouped[desc].count += 1;
+                    });
+
+                    // Sort and get top 5
+                    const sorted = Object.entries(grouped)
+                        .map(([name, data]) => ({ name, ...data }))
+                        .sort((a, b) => b.amount - a.amount)
+                        .slice(0, 5);
+
+                    if (sorted.length === 0) {
+                        document.getElementById(resultId).innerHTML = '<div class="error">No credit transactions found</div>';
+                        return;
+                    }
+
+                    let html = '<div class="top-list">';
+                    sorted.forEach((item, index) => {
+                        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                        html += `<div class="top-item">
+                            <div class="rank-badge">${medals[index]}</div>
+                            <div class="top-item-info">
+                                <div class="top-item-name">${item.name}</div>
+                                <div class="top-item-amount">₹${item.amount.toFixed(2)}</div>
+                                <div class="top-item-count">${item.count} transaction${item.count > 1 ? 's' : ''}</div>
+                            </div>
+                        </div>`;
+                    });
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTopSenders() {
+            const resultId = 'topSendersResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => {
+                    // Filter debited transactions and group by description
+                    const debitedTxns = data.filter(t => t.type === 'DEBIT');
+                    const grouped = {};
+                    
+                    debitedTxns.forEach(txn => {
+                        const desc = txn.description || 'Unknown';
+                        if (!grouped[desc]) {
+                            grouped[desc] = { amount: 0, count: 0 };
+                        }
+                        grouped[desc].amount += txn.amount || 0;
+                        grouped[desc].count += 1;
+                    });
+
+                    // Sort and get top 5
+                    const sorted = Object.entries(grouped)
+                        .map(([name, data]) => ({ name, ...data }))
+                        .sort((a, b) => b.amount - a.amount)
+                        .slice(0, 5);
+
+                    if (sorted.length === 0) {
+                        document.getElementById(resultId).innerHTML = '<div class="error">No debit transactions found</div>';
+                        return;
+                    }
+
+                    let html = '<div class="top-list">';
+                    sorted.forEach((item, index) => {
+                        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                        html += `<div class="top-item">
+                            <div class="rank-badge">${medals[index]}</div>
+                            <div class="top-item-info">
+                                <div class="top-item-name">${item.name}</div>
+                                <div class="top-item-amount">₹${item.amount.toFixed(2)}</div>
+                                <div class="top-item-count">${item.count} transaction${item.count > 1 ? 's' : ''}</div>
+                            </div>
+                        </div>`;
+                    });
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getAllTransactions() {
+            const resultId = 'allTransactionsResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getDebitedTransactions() {
+            const resultId = 'debitedResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/debited`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getCreditedTransactions() {
+            const resultId = 'creditedResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/credited`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTotalDebit() {
+            const resultId = 'debitTotalResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/total-debit`)
+                .then(r => r.json())
+                .then(data => displayStats(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTotalCredit() {
+            const resultId = 'creditTotalResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/total-credit`)
+                .then(r => r.json())
+                .then(data => displayStats(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getBalance() {
+            const resultId = 'balanceResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/balance`)
+                .then(r => r.json())
+                .then(data => displayStats(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getAverageDebit() {
+            const resultId = 'averageResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/average-debit`)
+                .then(r => r.json())
+                .then(data => displayStats(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getAverageCredit() {
+            const resultId = 'averageResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/average-credit`)
+                .then(r => r.json())
+                .then(data => displayStats(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getHighestTransaction() {
+            const resultId = 'extremeResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/highest`)
+                .then(r => r.json())
+                .then(data => displayResult(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getLowestTransaction() {
+            const resultId = 'extremeResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/lowest`)
+                .then(r => r.json())
+                .then(data => displayResult(resultId, data))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getRecentTransactions() {
+            const resultId = 'recentResult';
+            const days = document.getElementById('recentDays').value;
+            displayLoading(resultId);
+            fetch(`${API_BASE}/recent?days=${days}`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTransactionsByDateRange() {
+            const resultId = 'dateRangeResult';
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            if (!start || !end) {
+                displayError(resultId, 'Please select both dates');
+                return;
+            }
+            displayLoading(resultId);
+            fetch(`${API_BASE}/date-range?startDate=${start}&endDate=${end}`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTopTransactions() {
+            const resultId = 'topResult';
+            const limit = document.getElementById('topLimit').value;
+            displayLoading(resultId);
+            fetch(`${API_BASE}/top-transactions?limit=${limit}`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getMonthlySummary() {
+            const resultId = 'monthlySummaryResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/monthly-summary`)
+                .then(r => r.json())
+                .then(data => displayResult(resultId, data.monthlySummary))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getDailySummary() {
+            const resultId = 'dailySummaryResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/daily-summary`)
+                .then(r => r.json())
+                .then(data => displayResult(resultId, data.dailySummary))
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getCategories() {
+            const resultId = 'categoriesResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/categories`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div style="margin-top: 15px;">';
+                    html += '<p style="color: #666; margin-bottom: 15px;">Available Transaction Categories (Smart Pattern Matching):</p>';
+                    html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px;">';
+                    data.categories.forEach(cat => {
+                        html += `<div style="background: white; padding: 12px; border-radius: 8px; border-left: 4px solid #667eea; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">✓ ${cat}</div>`;
+                    });
+                    html += '</div></div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getCategoryWiseSpending() {
+            const resultId = 'categorySpendingResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/category-wise-spending`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div class="stats-grid">';
+                    const totals = data.categoryTotals || {};
+                    const counts = data.categoryCounts || {};
+                    
+                    for (const [category, total] of Object.entries(totals)) {
+                        const count = counts[category] || 0;
+                        html += `<div class="stat-card"><div class="label">${category}</div><div class="value">₹${total.toFixed(2)}</div><div style="color: #999; font-size: 0.85em; margin-top: 5px;">${count} transactions</div></div>`;
+                    }
+                    
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getCategoryBreakdown() {
+            const resultId = 'categoryBreakdownResult';
+            displayLoading(resultId);
+            fetch(`${API_BASE}/category-breakdown`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div style="margin-top: 15px;">';
+                    
+                    for (const [category, info] of Object.entries(data)) {
+                        const percentage = info.percentage || 0;
+                        const total = info.total || 0;
+                        const count = info.count || 0;
+                        
+                        html += `<div style="margin-bottom: 15px;">`;
+                        html += `<div style="display: flex; justify-content: space-between; margin-bottom: 5px;">`;
+                        html += `<span style="font-weight: 500; color: #333;">${category}</span>`;
+                        html += `<span style="color: #667eea; font-weight: bold;">${percentage.toFixed(1)}%</span>`;
+                        html += `</div>`;
+                        html += `<div style="width: 100%; background: #eee; height: 25px; border-radius: 5px; overflow: hidden;">`;
+                        html += `<div style="background: linear-gradient(90deg, #667eea, #764ba2); height: 100%; width: ${percentage}%; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85em; font-weight: bold;">${percentage > 5 ? percentage.toFixed(1) + '%' : ''}</div>`;
+                        html += `</div>`;
+                        html += `<div style="font-size: 0.85em; color: #666; margin-top: 5px;">₹${total.toFixed(2)} (${count} transactions)</div>`;
+                        html += `</div>`;
+                    }
+                    
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTopCategories() {
+            const resultId = 'topCategoriesResult';
+            const limit = document.getElementById('categoryLimit').value;
+            displayLoading(resultId);
+            fetch(`${API_BASE}/top-categories?limit=${limit}`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div class="stats-grid">';
+                    
+                    data.topCategories.forEach((item, index) => {
+                        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : '🥉';
+                        html += `<div class="stat-card">`;
+                        html += `<div style="font-size: 1.5em; margin-bottom: 5px;">${medal}</div>`;
+                        html += `<div class="label">${item.category}</div>`;
+                        html += `<div class="value">₹${(item.total || 0).toFixed(2)}</div>`;
+                        html += `<div style="color: #667eea; font-size: 0.9em; margin-top: 8px;"><strong>${(item.percentage || 0).toFixed(1)}%</strong></div>`;
+                        html += `<div style="color: #999; font-size: 0.85em; margin-top: 3px;">${item.count || 0} transactions</div>`;
+                        html += `</div>`;
+                    });
+                    
+                    html += '</div>';
+                    document.getElementById(resultId).innerHTML = html;
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function getTransactionsByCategory() {
+            const resultId = 'categoryTransactionsResult';
+            const category = document.getElementById('categorySelect').value;
+            if (!category) {
+                displayError(resultId, 'Please select a category');
+                return;
+            }
+            displayLoading(resultId);
+            fetch(`${API_BASE}/transactions-by-category?category=${encodeURIComponent(category)}`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.transactions && data.transactions.length > 0) {
+                        displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data.transactions);
+                    } else {
+                        document.getElementById(resultId).innerHTML = `<div class="error">No transactions found for category: ${data.category}</div>`;
+                    }
+                })
+                .catch(e => displayError(resultId, e.message));
+        }
+
+        function searchTransactions() {
+            const resultId = 'searchResult';
+            const keyword = document.getElementById('searchKeyword').value;
+            if (!keyword) {
+                displayError(resultId, 'Please enter a search keyword');
+                return;
+            }
+            displayLoading(resultId);
+            fetch(`${API_BASE}/search?keyword=${encodeURIComponent(keyword)}`)
+                .then(r => r.json())
+                .then(data => displayTable(resultId, ['id', 'description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError(resultId, e.message));
+        }
+    </script>
+</body>
+</html>

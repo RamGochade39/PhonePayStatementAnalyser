@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhonePay Transaction Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --danger: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #3498db;
+            --light-bg: #f8faff;
+            --border-radius: 15px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 270px;
+            height: 100vh;
+            padding: 30px 20px;
+            box-shadow: 0 15px 50px rgba(102, 126, 234, 0.15);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-size: 1.6em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 35px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin: 12px 0;
+        }
+
+        .nav-link {
+            color: #555;
+            text-decoration: none;
+            padding: 14px 16px;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            transform: translateX(6px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.25);
+        }
+
+        .nav-link i {
+            width: 22px;
+            font-size: 1.1em;
+        }
+
+        .main-content {
+            margin-left: 270px;
+            padding: 35px 25px;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: white;
+            padding: 25px 35px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin-bottom: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+            font-size: 2em;
+            letter-spacing: -0.5px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 35px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            cursor: pointer;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .feature-icon {
+            font-size: 1.9em;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .feature-title {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: #333;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .info-tooltip {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            font-size: 0.75em;
+            font-weight: bold;
+            cursor: help;
+            margin-left: auto;
+            transition: var(--transition);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .info-tooltip:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-inputs {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .feature-inputs input, .feature-inputs select {
+            padding: 12px 14px;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 0.95em;
+            transition: var(--transition);
+            font-family: inherit;
+            font-weight: 500;
+        }
+
+        .feature-inputs input:focus, .feature-inputs select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.15);
+            background: #f9fbff;
+        }
+
+        .feature-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
+            color: white;
+            border: none;
+            padding: 13px 22px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95em;
+            box-shadow: 0 6px 18px rgba(102, 126, 234, 0.3);
+            letter-spacing: 0.2px;
+        }
+
+        .feature-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 28px rgba(102, 126, 234, 0.4);
+        }
+
+        .feature-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .result-container {
+            margin-top: 22px;
+            min-height: 100px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 14px;
+        }
+
+        .stat-box {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+            transition: var(--transition);
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+
+        .stat-label {
+            font-size: 0.85em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 1.5em;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+        }
+
+        .table-responsive {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+            overflow-y: visible;
+            margin-top: 18px;
+            -webkit-overflow-scrolling: touch;
+            width: 100%;
+            max-width: 100%;
+            display: block;
+        }
+
+        .table {
+            margin: 0;
+            width: 100%;
+            min-width: 650px;
+            table-layout: auto;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .table thead th {
+            font-weight: 700;
+            border: none;
+            letter-spacing: 0.2px;
+            font-size: 0.95em;
+            white-space: nowrap;
+            min-width: 120px;
+            padding: 15px;
+        }
+
+        .table tbody td {
+            padding: 14px 15px;
+            word-break: break-word;
+            min-width: 100px;
+        }
+
+        .table tbody tr {
+            transition: var(--transition);
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .table tbody tr:hover {
+            background: #f9f9ff;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: var(--primary);
+        }
+
+        .spinner {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            border: 5px solid rgba(102, 126, 234, 0.2);
+            border-top-color: var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .error-msg {
+            background: linear-gradient(135deg, #fee8e8, #fef0f0);
+            color: #c0392b;
+            padding: 16px 18px;
+            border-radius: 10px;
+            border-left: 5px solid #c0392b;
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .success-msg {
+            background: linear-gradient(135deg, #e8f8f0, #f0fffb);
+            color: #27ae60;
+            padding: 16px 18px;
+            border-radius: 10px;
+            border-left: 5px solid #27ae60;
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .category-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 18px;
+        }
+
+        .badge-item {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.25);
+            letter-spacing: 0.2px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 380px;
+            margin-top: 22px;
+            background: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 12px;
+            margin-top: 22px;
+            padding: 18px;
+            background: #f8faff;
+            border-radius: 12px;
+            border: 1px solid #e8ecff;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .legend-color {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 70px;
+                padding: 15px 10px;
+            }
+
+            .logo span {
+                display: none;
+            }
+
+            .nav-link span {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 70px;
+                padding: 15px 10px;
+            }
+
+            .top-bar {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar h1 {
+                font-size: 1.5em;
+            }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.4s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .pagination-controls {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-top: 18px;
+            flex-wrap: wrap;
+        }
+
+        .pagination-btn {
+            padding: 8px 12px;
+            background: white;
+            border: 1.5px solid #e0e7ff;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9em;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .pagination-btn:hover {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Tooltip Styling */
+        .tooltip-inner {
+            background-color: #2c3e50;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-weight: 600;
+        }
+
+        .bs-tooltip-auto[data-popper-placement^="top"] > .tooltip-arrow::before,
+        .bs-tooltip-top > .tooltip-arrow::before {
+            border-top-color: #2c3e50;
+        }
+
+        .top-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .top-item {
+            background: linear-gradient(135deg, #f8faff, #f5f9ff);
+            border: 1.5px solid #e0e7ff;
+            border-radius: 12px;
+            padding: 18px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .top-item:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.15);
+        }
+
+        .rank-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2em;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .top-item-info {
+            flex: 1;
+        }
+
+        .top-item-name {
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 6px;
+            font-size: 0.95em;
+        }
+
+        .top-item-amount {
+            font-size: 1.3em;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .top-item-count {
+            font-size: 0.8em;
+            color: #999;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-wallet"></i>
+            <span>PhonePay</span>
+        </div>
+
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a class="nav-link active" onclick="showPage('summary')">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Summary</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showPage('transactions')">
+                    <i class="fas fa-list"></i>
+                    <span>Transactions</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showPage('analysis')">
+                    <i class="fas fa-chart-bar"></i>
+                    <span>Analysis</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showPage('categories')">
+                    <i class="fas fa-tags"></i>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" onclick="showPage('search')">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <h1>💰 Financial Dashboard</h1>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button class="btn btn-outline-danger btn-sm" onclick="logout()" title="Clear all data and logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+                <div style="font-size: 0.9em; color: #666; border-left: 1px solid #ddd; padding-left: 15px;">
+                    <i class="fas fa-calendar-alt"></i> <span id="currentDate"></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY PAGE -->
+        <div id="summary" class="page active">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h5 class="feature-title">Account Summary</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Complete overview of your financial status">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getSummary()"><i class="fas fa-sync"></i> Refresh</button>
+                    <div class="result-container" id="summaryResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-piggy-bank"></i></div>
+                        <h5 class="feature-title">Spending Insights</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Income vs Expenses breakdown">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getSpendingInsights()"><i class="fas fa-sync"></i> Refresh</button>
+                    <div class="result-container" id="insightsResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-wallet"></i></div>
+                        <h5 class="feature-title">Account Insights</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Money sent, received and balance">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getInsights()"><i class="fas fa-sync"></i> Refresh</button>
+                    <div class="result-container" id="mainInsightsResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-down"></i></div>
+                        <h5 class="feature-title">Top Money Receivers</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Top 5 sources of income">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getTopReceivers()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="topReceiversResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-up"></i></div>
+                        <h5 class="feature-title">Top Money Senders</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Top 5 expense destinations">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getTopSenders()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="topSendersResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- TRANSACTIONS PAGE -->
+        <div id="transactions" class="page">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-list-ul"></i></div>
+                        <h5 class="feature-title">All Transactions</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="View all transactions">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getAllTransactions()"><i class="fas fa-download"></i> Load</button>
+                    <div class="result-container" id="allTransactionsResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-up-right"></i></div>
+                        <h5 class="feature-title">Debited (Outgoing)</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Money sent from your account">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getDebitedTransactions()"><i class="fas fa-download"></i> Load</button>
+                    <div class="result-container" id="debitedResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-down-left"></i></div>
+                        <h5 class="feature-title">Credited (Incoming)</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Money received to your account">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getCreditedTransactions()"><i class="fas fa-download"></i> Load</button>
+                    <div class="result-container" id="creditedResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-calendar-days"></i></div>
+                        <h5 class="feature-title">Recent (Last N Days)</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Transactions from recent days">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <input type="number" id="recentDays" placeholder="Days" value="7" min="1">
+                        <button class="feature-btn" onclick="getRecentTransactions()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div class="result-container" id="recentResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-calendar-range"></i></div>
+                        <h5 class="feature-title">Date Range</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Select custom date range">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <input type="date" id="startDate">
+                        <input type="date" id="endDate">
+                        <button class="feature-btn" onclick="getTransactionsByDateRange()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div class="result-container" id="dateRangeResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-star"></i></div>
+                        <h5 class="feature-title">Top Transactions</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Largest transaction amounts">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <input type="number" id="topLimit" placeholder="Limit" value="10" min="1">
+                        <button class="feature-btn" onclick="getTopTransactions()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div class="result-container" id="topResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ANALYSIS PAGE -->
+        <div id="analysis" class="page">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-up"></i></div>
+                        <h5 class="feature-title">Total Debit</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Sum of all outgoing amounts">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getTotalDebit()"><i class="fas fa-calculator"></i> Calculate</button>
+                    <div class="result-container" id="debitTotalResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-down"></i></div>
+                        <h5 class="feature-title">Total Credit</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Sum of all incoming amounts">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getTotalCredit()"><i class="fas fa-calculator"></i> Calculate</button>
+                    <div class="result-container" id="creditTotalResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-balance-scale"></i></div>
+                        <h5 class="feature-title">Account Balance</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Credit minus Debit">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getBalance()"><i class="fas fa-calculator"></i> Calculate</button>
+                    <div class="result-container" id="balanceResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-divide"></i></div>
+                        <h5 class="feature-title">Average Amount</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Average debit and credit">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <button class="feature-btn" onclick="getAverageDebit()"><i class="fas fa-calculator"></i> Avg Debit</button>
+                        <button class="feature-btn" onclick="getAverageCredit()"><i class="fas fa-calculator"></i> Avg Credit</button>
+                    </div>
+                    <div class="result-container" id="averageResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-arrow-up-down"></i></div>
+                        <h5 class="feature-title">Highest & Lowest</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Largest and smallest transactions">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <button class="feature-btn" onclick="getHighestTransaction()"><i class="fas fa-arrow-up"></i> Highest</button>
+                        <button class="feature-btn" onclick="getLowestTransaction()"><i class="fas fa-arrow-down"></i> Lowest</button>
+                    </div>
+                    <div class="result-container" id="extremeResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-calendar-alt"></i></div>
+                        <h5 class="feature-title">Monthly Summary</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Breakdown by month">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getMonthlySummary()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="monthlySummaryResult"></div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 2;">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-chart-bar"></i></div>
+                        <h5 class="feature-title">📈 Daily Spending Trend</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Spending pattern over days">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getDailySpendingChart()"><i class="fas fa-sync"></i> Load Chart</button>
+                    <div style="position: relative; height: 300px; margin-top: 20px;">
+                        <canvas id="dailyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="feature-card" style="grid-column: span 2;">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <h5 class="feature-title">📊 Monthly Spending Trend</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Month-by-month spending analysis">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getMonthlySpendingChart()"><i class="fas fa-sync"></i> Load Chart</button>
+                    <div style="position: relative; height: 300px; margin-top: 20px;">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-calendar-days"></i></div>
+                        <h5 class="feature-title">Daily Summary</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Breakdown by day">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getDailySummary()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="dailySummaryResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CATEGORIES PAGE -->
+        <div id="categories" class="page">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-tags"></i></div>
+                        <h5 class="feature-title">All Categories</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Available spending categories">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getCategories()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="categoriesResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-chart-pie"></i></div>
+                        <h5 class="feature-title">Spending by Category</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Total spending per category">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getCategoryWiseSpending()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="categorySpendingResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-percentage"></i></div>
+                        <h5 class="feature-title">Category Breakdown</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Percentage breakdown with visual bars">ℹ</div>
+                    </div>
+                    <button class="feature-btn w-100" onclick="getCategoryBreakdown()"><i class="fas fa-sync"></i> Load</button>
+                    <div class="result-container" id="categoryBreakdownResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-trophy"></i></div>
+                        <h5 class="feature-title">Top Categories</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Highest spending categories">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <input type="number" id="categoryLimit" placeholder="Limit" value="5" min="1">
+                        <button class="feature-btn" onclick="getTopCategories()"><i class="fas fa-search"></i> Load</button>
+                    </div>
+                    <div class="result-container" id="topCategoriesResult"></div>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-list-check"></i></div>
+                        <h5 class="feature-title">Category Transactions</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="View transactions by category">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <select id="categorySelect">
+                            <option value="">Select Category...</option>
+                            <option value="Mobile Recharge">Mobile Recharge</option>
+                            <option value="Bills & Utilities">Bills & Utilities</option>
+                            <option value="Food & Dining">Food & Dining</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Medical & Health">Medical & Health</option>
+                            <option value="Transport & Travel">Transport & Travel</option>
+                            <option value="Transfer & Payment">Transfer & Payment</option>
+                            <option value="Income & Deposits">Income & Deposits</option>
+                            <option value="Groceries">Groceries</option>
+                        </select>
+                        <button class="feature-btn" onclick="getTransactionsByCategory()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div class="result-container" id="categoryTransactionsResult"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEARCH PAGE -->
+        <div id="search" class="page">
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <div class="feature-header">
+                        <div class="feature-icon"><i class="fas fa-magnifying-glass"></i></div>
+                        <h5 class="feature-title">Search Transactions</h5>
+                        <div class="info-tooltip" data-bs-toggle="tooltip" title="Search by keyword or description">ℹ</div>
+                    </div>
+                    <div class="feature-inputs">
+                        <input type="text" id="searchKeyword" placeholder="Search keyword (Mobile, Food, etc.)">
+                        <button class="feature-btn" onclick="searchTransactions()"><i class="fas fa-search"></i> Search</button>
+                    </div>
+                    <div class="result-container" id="searchResult"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const API_BASE = 'http://localhost:8080/api/transactions';
+
+        // Initialize tooltips
+        document.addEventListener('DOMContentLoaded', function() {
+            checkDataLoaded();
+            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+            updateCurrentDate();
+            
+            // Auto-load all data on page load
+            setTimeout(() => {
+                loadAllData();
+            }, 500);
+        });
+
+        // Auto-load all dashboard data at once
+        function loadAllData() {
+            console.log('Auto-loading all data...');
+            
+            // Summary Page
+            getSummary();
+            getSpendingInsights();
+            getInsights();
+            getTopReceivers();
+            getTopSenders();
+            
+            // Analysis Page
+            getTotalDebit();
+            getTotalCredit();
+            getBalance();
+            getAverageDebit();
+            getAverageCredit();
+            getHighestTransaction();
+            getLowestTransaction();
+            getMonthlySummary();
+            getDailySummary();
+            
+            // Categories Page
+            getCategories();
+            getCategoryWiseSpending();
+            getCategoryBreakdown();
+            getTopCategories();
+            
+            console.log('✅ All data loaded successfully');
+        }
+
+        function checkDataLoaded() {
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => {
+                    if (!data || data.length === 0) {
+                        window.location.href = '/upload.html';
+                    }
+                })
+                .catch(e => {
+                    window.location.href = '/upload.html';
+                });
+        }
+
+        function updateCurrentDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', options);
+        }
+
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+            // Show selected page
+            document.getElementById(pageName).classList.add('active');
+            event.target.closest('.nav-link').classList.add('active');
+        }
+
+        function displayLoading(elementId) {
+            document.getElementById(elementId).innerHTML = '<div class="loading"><div class="spinner"></div><p style="margin-top: 10px;">Loading...</p></div>';
+        }
+
+        function displayError(elementId, error) {
+            document.getElementById(elementId).innerHTML = `<div class="error-msg"><i class="fas fa-exclamation-circle"></i> ${error}</div>`;
+        }
+
+        function displayStats(elementId, stats) {
+            let html = '<div class="stats-grid">';
+            for (const [key, value] of Object.entries(stats)) {
+                if (typeof value !== 'object' && key !== 'currency') {
+                    const displayValue = typeof value === 'number' ? value.toFixed(2) : value;
+                    // Check if it's a count field - these should NOT have currency prefix
+                    const keyLower = key.toLowerCase();
+                    const isCount = keyLower.includes('count') || 
+                                   keyLower.includes('percentage') || 
+                                   keyLower.includes('ratio') ||
+                                   keyLower.includes('transaction') ||
+                                   keyLower === 'totaltransactions';
+                    const prefix = isCount ? '' : '₹';
+                    html += `<div class="stat-box"><div class="stat-label">${key}</div><div class="stat-value">${prefix}${displayValue}</div></div>`;
+                }
+            }
+            html += '</div>';
+            document.getElementById(elementId).innerHTML = html;
+        }
+
+        function displayTable(elementId, columns, data) {
+            if (!data || data.length === 0) {
+                document.getElementById(elementId).innerHTML = '<div class="error-msg">No data found</div>';
+                return;
+            }
+
+            const pageSize = 10;
+            const totalPages = Math.ceil(data.length / pageSize);
+            let currentPage = 1;
+            const container = document.getElementById(elementId);
+
+            function renderPage() {
+                const start = (currentPage - 1) * pageSize;
+                const end = start + pageSize;
+                const pageData = data.slice(start, end);
+
+                let html = `<div style="margin: 15px 0; font-size: 0.9em; color: #666;"><i class="fas fa-info-circle"></i> Showing ${start + 1}-${Math.min(end, data.length)} of ${data.length} records (Page ${currentPage}/${totalPages})</div>`;
+                html += '<div class="table-responsive"><table class="table table-hover"><thead><tr>';
+                columns.forEach(col => html += `<th>${col}</th>`);
+                html += '</tr></thead><tbody>';
+
+                pageData.forEach(row => {
+                    html += '<tr>';
+                    columns.forEach(col => {
+                        let val = row[col];
+                        if (col === 'amount') val = '₹' + (val || 0).toFixed(2);
+                        html += `<td>${val || '-'}</td>`;
+                    });
+                    html += '</tr>';
+                });
+
+                html += '</tbody></table></div>';
+
+                if (totalPages > 1) {
+                    html += '<div class="pagination-controls">';
+                    if (currentPage > 1) html += `<button class="pagination-btn" onclick="document.getElementById('${elementId}').goToPage(${currentPage - 1})"><i class="fas fa-chevron-left"></i></button>`;
+                    for (let i = Math.max(1, currentPage - 2); i <= Math.min(totalPages, currentPage + 2); i++) {
+                        html += `<button class="pagination-btn ${i === currentPage ? 'active' : ''}" onclick="document.getElementById('${elementId}').goToPage(${i})">${i}</button>`;
+                    }
+                    if (currentPage < totalPages) html += `<button class="pagination-btn" onclick="document.getElementById('${elementId}').goToPage(${currentPage + 1})"><i class="fas fa-chevron-right"></i></button>`;
+                    html += '</div>';
+                }
+
+                container.innerHTML = html;
+            }
+
+            container.goToPage = function(page) {
+                if (page >= 1 && page <= totalPages) {
+                    currentPage = page;
+                    renderPage();
+                }
+            };
+
+            renderPage();
+        }
+
+        // API Functions
+        function getSummary() {
+            displayLoading('summaryResult');
+            fetch(`${API_BASE}/summary`)
+                .then(r => r.json())
+                .then(data => displayStats('summaryResult', data))
+                .catch(e => displayError('summaryResult', e.message));
+        }
+
+        function getSpendingInsights() {
+            displayLoading('insightsResult');
+            Promise.all([
+                fetch(`${API_BASE}/total-debit`).then(r => r.json()),
+                fetch(`${API_BASE}/total-credit`).then(r => r.json())
+            ])
+            .then(([debit, credit]) => {
+                const totalDebit = debit.totalDebit || 0;
+                const totalCredit = credit.totalCredit || 0;
+                const total = totalDebit + totalCredit;
+                const expenseRatio = total > 0 ? (totalDebit / total * 100) : 0;
+                const incomeRatio = total > 0 ? (totalCredit / total * 100) : 0;
+
+                let html = '<div class="stats-grid">';
+                html += `<div class="stat-box">
+                    <div class="stat-label">Expense Ratio</div>
+                    <div class="stat-value">${expenseRatio.toFixed(1)}%</div>
+                    <small>₹${totalDebit.toFixed(2)}</small>
+                </div>`;
+                html += `<div class="stat-box">
+                    <div class="stat-label">Income Ratio</div>
+                    <div class="stat-value">${incomeRatio.toFixed(1)}%</div>
+                    <small>₹${totalCredit.toFixed(2)}</small>
+                </div>`;
+                html += `<div class="stat-box">
+                    <div class="stat-label">Spending Pattern</div>
+                    <div class="stat-value">${(totalDebit / totalCredit).toFixed(2)}x</div>
+                    <small>Expense to Income Ratio</small>
+                </div>`;
+                html += '</div>';
+                document.getElementById('insightsResult').innerHTML = html;
+            })
+            .catch(e => displayError('insightsResult', e.message));
+        }
+
+        function getInsights() {
+            displayLoading('mainInsightsResult');
+            Promise.all([
+                fetch(`${API_BASE}/total-debit`).then(r => r.json()),
+                fetch(`${API_BASE}/total-credit`).then(r => r.json()),
+                fetch(`${API_BASE}/balance`).then(r => r.json())
+            ])
+            .then(([debit, credit, balance]) => {
+                let html = '<div class="stats-grid">';
+                html += `<div class="stat-box" style="background: linear-gradient(135deg, #f85032, #fa7b2f);">
+                    <div class="stat-label"><i class="fas fa-arrow-up"></i> Money Sent Out</div>
+                    <div class="stat-value">₹${(debit.totalDebit || 0).toFixed(2)}</div>
+                </div>`;
+                html += `<div class="stat-box" style="background: linear-gradient(135deg, #2dce89, #1bbb5e);">
+                    <div class="stat-label"><i class="fas fa-arrow-down"></i> Money Received</div>
+                    <div class="stat-value">₹${(credit.totalCredit || 0).toFixed(2)}</div>
+                </div>`;
+                const bal = balance.balance || 0;
+                const balGradient = bal >= 0 ? 'linear-gradient(135deg, #2dce89, #1bbb5e)' : 'linear-gradient(135deg, #f85032, #fa7b2f)';
+                html += `<div class="stat-box" style="background: ${balGradient};">
+                    <div class="stat-label"><i class="fas fa-wallet"></i> Current Balance</div>
+                    <div class="stat-value">₹${bal.toFixed(2)}</div>
+                </div>`;
+                html += '</div>';
+                document.getElementById('mainInsightsResult').innerHTML = html;
+            })
+            .catch(e => displayError('mainInsightsResult', e.message));
+        }
+
+        function getTopReceivers() {
+            displayLoading('topReceiversResult');
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => {
+                    const creditedTxns = data.filter(t => t.type === 'CREDIT');
+                    const grouped = {};
+                    
+                    creditedTxns.forEach(txn => {
+                        const desc = txn.description || 'Unknown';
+                        if (!grouped[desc]) {
+                            grouped[desc] = { amount: 0, count: 0 };
+                        }
+                        grouped[desc].amount += txn.amount || 0;
+                        grouped[desc].count += 1;
+                    });
+
+                    const sorted = Object.entries(grouped)
+                        .map(([name, data]) => ({ name, ...data }))
+                        .sort((a, b) => b.amount - a.amount)
+                        .slice(0, 5);
+
+                    if (sorted.length === 0) {
+                        document.getElementById('topReceiversResult').innerHTML = '<div class="error-msg">No credit transactions found</div>';
+                        return;
+                    }
+
+                    let html = '<div class="top-list">';
+                    sorted.forEach((item, index) => {
+                        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                        html += `<div class="top-item">
+                            <div class="rank-badge">${medals[index]}</div>
+                            <div class="top-item-info">
+                                <div class="top-item-name">${item.name}</div>
+                                <div class="top-item-amount">₹${item.amount.toFixed(2)}</div>
+                                <div class="top-item-count">${item.count} transaction${item.count > 1 ? 's' : ''}</div>
+                            </div>
+                        </div>`;
+                    });
+                    html += '</div>';
+                    document.getElementById('topReceiversResult').innerHTML = html;
+                })
+                .catch(e => displayError('topReceiversResult', e.message));
+        }
+
+        function getTopSenders() {
+            displayLoading('topSendersResult');
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => {
+                    const debitedTxns = data.filter(t => t.type === 'DEBIT');
+                    const grouped = {};
+                    
+                    debitedTxns.forEach(txn => {
+                        const desc = txn.description || 'Unknown';
+                        if (!grouped[desc]) {
+                            grouped[desc] = { amount: 0, count: 0 };
+                        }
+                        grouped[desc].amount += txn.amount || 0;
+                        grouped[desc].count += 1;
+                    });
+
+                    const sorted = Object.entries(grouped)
+                        .map(([name, data]) => ({ name, ...data }))
+                        .sort((a, b) => b.amount - a.amount)
+                        .slice(0, 5);
+
+                    if (sorted.length === 0) {
+                        document.getElementById('topSendersResult').innerHTML = '<div class="error-msg">No debit transactions found</div>';
+                        return;
+                    }
+
+                    let html = '<div class="top-list">';
+                    sorted.forEach((item, index) => {
+                        const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                        html += `<div class="top-item">
+                            <div class="rank-badge">${medals[index]}</div>
+                            <div class="top-item-info">
+                                <div class="top-item-name">${item.name}</div>
+                                <div class="top-item-amount">₹${item.amount.toFixed(2)}</div>
+                                <div class="top-item-count">${item.count} transaction${item.count > 1 ? 's' : ''}</div>
+                            </div>
+                        </div>`;
+                    });
+                    html += '</div>';
+                    document.getElementById('topSendersResult').innerHTML = html;
+                })
+                .catch(e => displayError('topSendersResult', e.message));
+        }
+
+        function getAllTransactions() {
+            displayLoading('allTransactionsResult');
+            fetch(`${API_BASE}/all`)
+                .then(r => r.json())
+                .then(data => displayTable('allTransactionsResult', ['description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError('allTransactionsResult', e.message));
+        }
+
+        function getDebitedTransactions() {
+            displayLoading('debitedResult');
+            fetch(`${API_BASE}/debited`)
+                .then(r => r.json())
+                .then(data => displayTable('debitedResult', ['description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError('debitedResult', e.message));
+        }
+
+        function getCreditedTransactions() {
+            displayLoading('creditedResult');
+            fetch(`${API_BASE}/credited`)
+                .then(r => r.json())
+                .then(data => displayTable('creditedResult', ['description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError('creditedResult', e.message));
+        }
+
+        function getRecentTransactions() {
+            const days = document.getElementById('recentDays').value || 7;
+            displayLoading('recentResult');
+            fetch(`${API_BASE}/recent?days=${days}`)
+                .then(r => r.json())
+                .then(data => displayTable('recentResult', ['description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError('recentResult', e.message));
+        }
+
+        function getTransactionsByDateRange() {
+            const startDate = document.getElementById('startDate').value;
+            const endDate = document.getElementById('endDate').value;
+            if (!startDate || !endDate) {
+                displayError('dateRangeResult', 'Please select both start and end dates');
+                return;
+            }
+            displayLoading('dateRangeResult');
+            fetch(`${API_BASE}/date-range?startDate=${startDate}&endDate=${endDate}`)
+                .then(r => r.json())
+                .then(data => displayTable('dateRangeResult', ['description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError('dateRangeResult', e.message));
+        }
+
+        function getTopTransactions() {
+            const limit = document.getElementById('topLimit').value || 10;
+            displayLoading('topResult');
+            fetch(`${API_BASE}/top-transactions?limit=${limit}`)
+                .then(r => r.json())
+                .then(data => displayTable('topResult', ['description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError('topResult', e.message));
+        }
+
+        function getTotalDebit() {
+            displayLoading('debitTotalResult');
+            fetch(`${API_BASE}/total-debit`)
+                .then(r => r.json())
+                .then(data => displayStats('debitTotalResult', data))
+                .catch(e => displayError('debitTotalResult', e.message));
+        }
+
+        function getTotalCredit() {
+            displayLoading('creditTotalResult');
+            fetch(`${API_BASE}/total-credit`)
+                .then(r => r.json())
+                .then(data => displayStats('creditTotalResult', data))
+                .catch(e => displayError('creditTotalResult', e.message));
+        }
+
+        function getBalance() {
+            displayLoading('balanceResult');
+            fetch(`${API_BASE}/balance`)
+                .then(r => r.json())
+                .then(data => displayStats('balanceResult', data))
+                .catch(e => displayError('balanceResult', e.message));
+        }
+
+        function getAverageDebit() {
+            displayLoading('averageResult');
+            fetch(`${API_BASE}/average-debit`)
+                .then(r => r.json())
+                .then(data => displayStats('averageResult', data))
+                .catch(e => displayError('averageResult', e.message));
+        }
+
+        function getAverageCredit() {
+            displayLoading('averageResult');
+            fetch(`${API_BASE}/average-credit`)
+                .then(r => r.json())
+                .then(data => displayStats('averageResult', data))
+                .catch(e => displayError('averageResult', e.message));
+        }
+
+        function getHighestTransaction() {
+            displayLoading('extremeResult');
+            fetch(`${API_BASE}/highest`)
+                .then(r => r.json())
+                .then(data => displayStats('extremeResult', data))
+                .catch(e => displayError('extremeResult', e.message));
+        }
+
+        function getLowestTransaction() {
+            displayLoading('extremeResult');
+            fetch(`${API_BASE}/lowest`)
+                .then(r => r.json())
+                .then(data => displayStats('extremeResult', data))
+                .catch(e => displayError('extremeResult', e.message));
+        }
+
+        function getMonthlySummary() {
+            displayLoading('monthlySummaryResult');
+            fetch(`${API_BASE}/monthly-summary`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.monthlySummary && data.monthlySummary.length > 0) {
+                        displayTable('monthlySummaryResult', ['month', 'year', 'type', 'count', 'total'], data.monthlySummary);
+                    } else {
+                        document.getElementById('monthlySummaryResult').innerHTML = '<div class="error-msg">No data available</div>';
+                    }
+                })
+                .catch(e => displayError('monthlySummaryResult', e.message));
+        }
+
+        function getDailySummary() {
+            displayLoading('dailySummaryResult');
+            fetch(`${API_BASE}/daily-summary`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.dailySummary && data.dailySummary.length > 0) {
+                        displayTable('dailySummaryResult', ['date', 'type', 'count', 'total'], data.dailySummary);
+                    } else {
+                        document.getElementById('dailySummaryResult').innerHTML = '<div class="error-msg">No data available</div>';
+                    }
+                })
+                .catch(e => displayError('dailySummaryResult', e.message));
+        }
+
+        function getCategories() {
+            displayLoading('categoriesResult');
+            fetch(`${API_BASE}/categories`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div class="category-badges">';
+                    data.categories.forEach(cat => {
+                        html += `<span class="badge-item"><i class="fas fa-tag"></i> ${cat}</span>`;
+                    });
+                    html += '</div>';
+                    document.getElementById('categoriesResult').innerHTML = html;
+                })
+                .catch(e => displayError('categoriesResult', e.message));
+        }
+
+        function getCategoryWiseSpending() {
+            displayLoading('categorySpendingResult');
+            fetch(`${API_BASE}/category-wise-spending`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div class="stats-grid">';
+                    const totals = data.categoryTotals || {};
+                    const counts = data.categoryCounts || {};
+                    for (const [cat, total] of Object.entries(totals)) {
+                        html += `<div class="stat-box"><div class="stat-label">${cat}</div><div class="stat-value">₹${total.toFixed(2)}</div><small>${counts[cat] || 0} transactions</small></div>`;
+                    }
+                    html += '</div>';
+                    document.getElementById('categorySpendingResult').innerHTML = html;
+                })
+                .catch(e => displayError('categorySpendingResult', e.message));
+        }
+
+        function getCategoryBreakdown() {
+            displayLoading('categoryBreakdownResult');
+            fetch(`${API_BASE}/category-breakdown`)
+                .then(r => r.json())
+                .then(data => {
+                    const categories = Object.keys(data);
+                    const amounts = categories.map(cat => data[cat].total || 0);
+                    const percentages = categories.map(cat => data[cat].percentage || 0);
+                    const counts = categories.map(cat => data[cat].count || 0);
+
+                    // Color palette
+                    const colors = [
+                        '#667eea', '#764ba2', '#f85032', '#2dce89', '#fb6340',
+                        '#11cdef', '#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff',
+                        '#ff6b9d', '#a29bfe'
+                    ];
+
+                    let html = `
+                        <div class="chart-container">
+                            <canvas id="categoryChart"></canvas>
+                        </div>
+                        <div class="chart-legend">
+                    `;
+
+                    categories.forEach((cat, i) => {
+                        html += `
+                            <div class="legend-item">
+                                <div class="legend-color" style="background: ${colors[i]}"></div>
+                                <div>
+                                    <div style="font-weight: 600;">${cat}</div>
+                                    <small style="color: #666;">₹${(data[cat].total || 0).toFixed(2)} (${percentages[i].toFixed(1)}%)</small>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div>';
+                    document.getElementById('categoryBreakdownResult').innerHTML = html;
+
+                    // Create chart
+                    const ctx = document.getElementById('categoryChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: categories,
+                            datasets: [{
+                                data: amounts,
+                                backgroundColor: colors.slice(0, categories.length),
+                                borderColor: '#fff',
+                                borderWidth: 3,
+                                hoverBorderWidth: 4
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    display: false
+                                },
+                                tooltip: {
+                                    backgroundColor: '#333',
+                                    padding: 12,
+                                    titleFont: { size: 14, weight: 'bold' },
+                                    bodyFont: { size: 13 },
+                                    callbacks: {
+                                        label: function(context) {
+                                            const idx = context.dataIndex;
+                                            return `Amount: ₹${amounts[idx].toFixed(2)} (${percentages[idx].toFixed(1)}%) • ${counts[idx]} transactions`;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    });
+                })
+                .catch(e => displayError('categoryBreakdownResult', e.message));
+        }
+
+        function getTopCategories() {
+            const limit = document.getElementById('categoryLimit').value || 5;
+            displayLoading('topCategoriesResult');
+            fetch(`${API_BASE}/top-categories?limit=${limit}`)
+                .then(r => r.json())
+                .then(data => {
+                    let html = '<div class="stats-grid">';
+                    const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣'];
+                    data.topCategories.forEach((item, i) => {
+                        html += `<div class="stat-box"><div style="font-size: 1.5em; margin-bottom: 5px;">${medals[i] || '⭐'}</div>
+                        <div class="stat-label">${item.category}</div>
+                        <div class="stat-value">₹${(item.total || 0).toFixed(2)}</div>
+                        <small>${(item.percentage || 0).toFixed(1)}% • ${item.count || 0} txns</small></div>`;
+                    });
+                    html += '</div>';
+                    document.getElementById('topCategoriesResult').innerHTML = html;
+                })
+                .catch(e => displayError('topCategoriesResult', e.message));
+        }
+
+        function getTransactionsByCategory() {
+            const cat = document.getElementById('categorySelect').value;
+            if (!cat) {
+                displayError('categoryTransactionsResult', 'Please select a category');
+                return;
+            }
+            displayLoading('categoryTransactionsResult');
+            fetch(`${API_BASE}/transactions-by-category?category=${encodeURIComponent(cat)}`)
+                .then(r => r.json())
+                .then(data => displayTable('categoryTransactionsResult', ['description', 'type', 'amount', 'transactionDate'], data.transactions))
+                .catch(e => displayError('categoryTransactionsResult', e.message));
+        }
+
+        function searchTransactions() {
+            const keyword = document.getElementById('searchKeyword').value;
+            if (!keyword) {
+                displayError('searchResult', 'Please enter a search keyword');
+                return;
+            }
+            displayLoading('searchResult');
+            fetch(`${API_BASE}/search?keyword=${encodeURIComponent(keyword)}`)
+                .then(r => r.json())
+                .then(data => displayTable('searchResult', ['description', 'type', 'amount', 'transactionDate'], data))
+                .catch(e => displayError('searchResult', e.message));
+        }
+
+        // Get daily spending chart data
+        function getDailySpendingChart() {
+            displayLoading('dailyChart');
+            fetch(`${API_BASE}/daily-summary`)
+                .then(r => r.json())
+                .then(data => {
+                    const dates = data.map(d => d.date).sort();
+                    const debits = dates.map(date => {
+                        const item = data.find(d => d.date === date);
+                        return item ? item.totalDebit || 0 : 0;
+                    });
+                    const credits = dates.map(date => {
+                        const item = data.find(d => d.date === date);
+                        return item ? item.totalCredit || 0 : 0;
+                    });
+
+                    const canvas = document.getElementById('dailyChart');
+                    if (canvas.chart) canvas.chart.destroy();
+                    
+                    const ctx = canvas.getContext('2d');
+                    canvas.chart = new Chart(ctx, {
+                        type: 'bar',
+                        data: {
+                            labels: dates.slice(-30), // Last 30 days
+                            datasets: [
+                                {
+                                    label: 'Spending (Debit)',
+                                    data: debits.slice(-30),
+                                    backgroundColor: '#ff6b6b',
+                                    borderColor: '#ff5252',
+                                    borderWidth: 2
+                                },
+                                {
+                                    label: 'Income (Credit)',
+                                    data: credits.slice(-30),
+                                    backgroundColor: '#51cf66',
+                                    borderColor: '#40c057',
+                                    borderWidth: 2
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: true, position: 'top' },
+                                tooltip: { backgroundColor: '#333', padding: 12 }
+                            },
+                            scales: {
+                                y: { beginAtZero: true, ticks: { callback: v => '₹' + v.toFixed(0) } }
+                            }
+                        }
+                    });
+                })
+                .catch(e => console.error(e));
+        }
+
+        // Get monthly spending chart data
+        function getMonthlySpendingChart() {
+            displayLoading('monthlyChart');
+            fetch(`${API_BASE}/monthly-summary`)
+                .then(r => r.json())
+                .then(data => {
+                    const months = data.map(d => d.month).sort();
+                    const debits = months.map(month => {
+                        const item = data.find(d => d.month === month);
+                        return item ? item.totalDebit || 0 : 0;
+                    });
+                    const credits = months.map(month => {
+                        const item = data.find(d => d.month === month);
+                        return item ? item.totalCredit || 0 : 0;
+                    });
+
+                    const canvas = document.getElementById('monthlyChart');
+                    if (canvas.chart) canvas.chart.destroy();
+                    
+                    const ctx = canvas.getContext('2d');
+                    canvas.chart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: months,
+                            datasets: [
+                                {
+                                    label: 'Monthly Spending',
+                                    data: debits,
+                                    borderColor: '#ff6b6b',
+                                    backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                                    borderWidth: 3,
+                                    tension: 0.4,
+                                    fill: true
+                                },
+                                {
+                                    label: 'Monthly Income',
+                                    data: credits,
+                                    borderColor: '#51cf66',
+                                    backgroundColor: 'rgba(81, 207, 102, 0.1)',
+                                    borderWidth: 3,
+                                    tension: 0.4,
+                                    fill: true
+                                }
+                            ]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: { display: true, position: 'top' },
+                                tooltip: { backgroundColor: '#333', padding: 12 }
+                            },
+                            scales: {
+                                y: { beginAtZero: true, ticks: { callback: v => '₹' + v.toFixed(0) } }
+                            }
+                        }
+                    });
+                })
+                .catch(e => console.error(e));
+        }
+
+        // Logout - clear all session data
+        function logout() {
+            if (confirm('Are you sure you want to logout? All data will be cleared.')) {
+                fetch(`${API_BASE}/logout`, { method: 'POST' })
+                    .then(r => r.json())
+                    .then(data => {
+                        showAlert('✅ ' + data.message);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+                    })
+                    .catch(e => showAlert('Error logging out: ' + e.message, 'error'));
+            }
+        }
+
+        // Helper function for alerts
+        function showAlert(message, type = 'success') {
+            const alertDiv = document.createElement('div');
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'error' ? '#ff6b6b' : '#51cf66'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                z-index: 10000;
+                animation: slideIn 0.3s ease;
+            `;
+            alertDiv.textContent = message;
+            document.body.appendChild(alertDiv);
+            setTimeout(() => {
+                alertDiv.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => alertDiv.remove(), 300);
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
